@@ -1,4 +1,11 @@
 package org.example.dto.response;
+import lombok.*;
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 public class PersonaResponseDTO {
     private Integer id;
@@ -6,7 +13,7 @@ public class PersonaResponseDTO {
     private String apellido;
     private Integer edad;
     private String direccion;
-
+/*
     public PersonaResponseDTO() {
     }
 
@@ -68,5 +75,7 @@ public class PersonaResponseDTO {
         sb.append('}');
         return sb.toString();
     }
+
+ */
 
 }

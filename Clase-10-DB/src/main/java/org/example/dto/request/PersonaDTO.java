@@ -1,11 +1,18 @@
 package org.example.dto.request;
+import lombok.*;
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 public class PersonaDTO {
     private String nombre;
     private String apellido;
     private Integer edad;
     private String direccion;
-
+/*
     public PersonaDTO() {
     }
 
@@ -58,5 +65,7 @@ public class PersonaDTO {
                 ", direccion='" + direccion + '\'' +
                 '}';
     }
+    
+ */
 
 }

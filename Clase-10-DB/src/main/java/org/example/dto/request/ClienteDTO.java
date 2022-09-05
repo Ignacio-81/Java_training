@@ -1,9 +1,17 @@
 package org.example.dto.request;
 
+import lombok.*;
+
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class ClienteDTO extends PersonaDTO {
     private Integer idCliente;
     private String vip;
-
+/*
     public ClienteDTO() {
 
     }
@@ -30,4 +38,6 @@ public class ClienteDTO extends PersonaDTO {
     public void setVip(String vip) {
         this.vip = vip;
     }
+
+ */
 }

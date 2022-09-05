@@ -1,11 +1,18 @@
 package org.example.dto.response;
 
+import lombok.*;
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class EmpleadoResponseDTO extends PersonaResponseDTO{
 
     private Integer idEmpleado;
     private Double sueldo;
 
-
+/*
     public EmpleadoResponseDTO() {
     }
 
@@ -30,4 +37,6 @@ public class EmpleadoResponseDTO extends PersonaResponseDTO{
     public void setSueldo(Double sueldo) {
         this.sueldo = sueldo;
     }
+
+ */
 }

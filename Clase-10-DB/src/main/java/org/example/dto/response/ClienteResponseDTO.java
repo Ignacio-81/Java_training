@@ -1,10 +1,16 @@
 package org.example.dto.response;
+import lombok.*;
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class ClienteResponseDTO extends PersonaResponseDTO {
 
     private Integer idCliente;
     private String vip;
-
+/*
     public ClienteResponseDTO() {
 
     }
@@ -31,4 +37,6 @@ public class ClienteResponseDTO extends PersonaResponseDTO {
     public void setVip(String vip) {
         this.vip = vip;
     }
+
+ */
 }
