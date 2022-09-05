@@ -1,5 +1,18 @@
 package org.example.dto.response;
+/**
+ * Request para Persona
+ * Constructor:
+ * @nombre String,
+ * @apellido String,
+ * @edad String,
+ * @direccion String,
+ * @dni String,
 
+
+ * Metodos:
+ * @Seters - id, Nombre, Apellido, Edad, Direccion
+ * @Geters - id, Nombre, Apellido, Edad, Direccion
+ */
 public class PersonaResponseDTO {
     private Integer id;
     private String nombre;

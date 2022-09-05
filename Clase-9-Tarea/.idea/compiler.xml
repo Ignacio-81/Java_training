@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Clase-8_tarea" />
         <module name="Clase-9" />
+        <module name="Clase-9-Tarea" />
       </profile>
     </annotationProcessing>
   </component>
