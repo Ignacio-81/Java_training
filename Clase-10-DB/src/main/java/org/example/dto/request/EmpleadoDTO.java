@@ -2,7 +2,7 @@ package org.example.dto.request;
 
 import lombok.*;
 
-@Builder
+//@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -11,6 +11,7 @@ public class EmpleadoDTO extends PersonaDTO {
 
     private Integer idEmpleado;
     private Double sueldo;
+    private int idPersona_empleado;
 
 /*
     public EmpleadoDTO() {

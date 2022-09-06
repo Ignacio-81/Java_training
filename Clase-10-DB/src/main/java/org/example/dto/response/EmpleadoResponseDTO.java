@@ -11,6 +11,7 @@ public class EmpleadoResponseDTO extends PersonaResponseDTO{
 
     private Integer idEmpleado;
     private Double sueldo;
+    private Integer idPersona;
 
 /*
     public EmpleadoResponseDTO() {

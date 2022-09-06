@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.dto.request.EmpleadoDTO;
 import org.example.dto.response.EmpleadoResponseDTO;
+import org.example.dto.response.PersonaResponseDTO;
 import org.example.entity.Empleado;
 import org.example.service.IEmpleadoService;
 import org.example.service.IServicios;
@@ -14,6 +15,11 @@ public class EmpleadoController {
 
     private IEmpleadoService iServiciosEmpleado= new EmpleadoServiceImpl();
 
+    public List<EmpleadoResponseDTO> listarEmpleados() {
+        return iServiciosEmpleado.getAllEmpleados();
+    }
+
+/*
     public void agregarEmpleado (Empleado empleado){
 
         iServiciosEmpleado.insertEmpleado(empleado);
@@ -28,4 +34,6 @@ public class EmpleadoController {
     public EmpleadoResponseDTO modificarEmpleado(EmpleadoDTO empleadoDTO, Integer id){
         return iServiciosEmpleado.updateEmpleado(empleadoDTO, id);
     }
+
+ */
 }
