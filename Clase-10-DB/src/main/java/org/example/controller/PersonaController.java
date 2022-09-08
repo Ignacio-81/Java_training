@@ -1,5 +1,14 @@
 package org.example.controller;
+/**
+ * Implementacion Controller Persona
 
+ * Metodos:
+ * @listarPersonas List<PersonaResponseDTO> ()
+ * @agregarPersona (PersonaDTO personas)
+ * @modificarPersona Integer (PersonaDTO personaDTO, Integer id)
+ * @borrarPersona int (Integer id)
+
+ */
 import org.example.dto.request.PersonaDTO;
 import org.example.dto.response.PersonaResponseDTO;
 import org.example.entity.Persona;

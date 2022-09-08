@@ -9,9 +9,9 @@ public class EmpleadoMapperImpl {
 
     private ModelMapper objMapper = new ModelMapper();
 
-    public EmpleadoResponseDTO EntityToDto(Empleado clienteInput){
+    public EmpleadoResponseDTO EntityToDto(Empleado empleadoInput){
         EmpleadoResponseDTO empleadoResponseDTO = new EmpleadoResponseDTO();
-        return objMapper.map(clienteInput,EmpleadoResponseDTO.class);
+        return objMapper.map(empleadoInput,EmpleadoResponseDTO.class);
     }
 
 }

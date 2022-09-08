@@ -1,8 +1,11 @@
 package org.example.dto.response;
 import lombok.*;
-@Builder
+import lombok.experimental.SuperBuilder;
+
+@SuperBuilder
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -10,6 +13,7 @@ public class ClienteResponseDTO extends PersonaResponseDTO {
 
     private Integer idCliente;
     private String vip;
+    private Integer idPersona;
 /*
     public ClienteResponseDTO() {
 

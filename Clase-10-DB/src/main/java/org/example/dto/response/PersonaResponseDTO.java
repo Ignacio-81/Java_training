@@ -1,11 +1,13 @@
 package org.example.dto.response;
 import lombok.*;
-@Builder
+import lombok.experimental.SuperBuilder;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@SuperBuilder
 
 public class PersonaResponseDTO {
     private Integer id;

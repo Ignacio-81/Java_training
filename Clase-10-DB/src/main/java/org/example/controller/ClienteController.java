@@ -1,8 +1,16 @@
 package org.example.controller;
+/**
+ * Implementacion Controller Cliente
 
+ * Metodos:
+ * @listarClientes List<ClienteResponseDTO> ()
+ * @agregarCliente Integer (ClienteDTO cliente)
+ * @modificarCliente Integer (ClienteDTO clienteDTO, Integer id)
+ * @borrarCliente int (Integer id)
+
+ */
 import org.example.dto.request.ClienteDTO;
 import org.example.dto.response.ClienteResponseDTO;
-import org.example.entity.Cliente;
 import org.example.service.IClienteService;
 import org.example.service.IServicios;
 import org.example.service.Impl.ClienteServiceImpl;
@@ -14,18 +22,18 @@ public class ClienteController {
 
     private IClienteService iServiciosCliente= new ClienteServiceImpl();
 
-    public void agregarCliente (Cliente cliente){
-
-        iServiciosCliente.insertCliente(cliente);
-    }
-    public void borrarCliente (Integer id){
-        iServiciosCliente.deleteCliente(id);
-    }
-    public List<Cliente> listarClientes (){
-        return iServiciosCliente.listarClientes();
+    public List<ClienteResponseDTO> listarClientes() {
+        return iServiciosCliente.getAllClientes();
     }
 
-    public ClienteResponseDTO modificarCliente(ClienteDTO clienteDTO, Integer id){
+    public Integer agregarCliente(ClienteDTO cliente){
+        return iServiciosCliente.insertCliente(cliente);
+    }
+    public Integer modificarCliente(ClienteDTO clienteDTO, Integer id) {
         return iServiciosCliente.updateCliente(clienteDTO, id);
     }
+    public int borrarCliente(Integer id){
+        return iServiciosCliente.deleteCliente(id);
+    }
+
 }

@@ -1,15 +1,20 @@
 package org.example.dto.request;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 //@Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@SuperBuilder
+
+
 public class EmpleadoDTO extends PersonaDTO {
 
-    private Integer idEmpleado;
+    //private Integer idEmpleado;
     private Double sueldo;
     private int idPersona_empleado;
 

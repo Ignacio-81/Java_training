@@ -1,4 +1,15 @@
 package org.example.service.Impl;
+/**
+ * Implementacion Servicio Persona - Implementa IPersonaService
+
+ * Metodos:
+ * @getAllPersonas List<PersonaResponseDTO> ()
+ * @checkRegistroById int (Integer id, String sqlConst)
+ * @insertPersona Integer (PersonaDTO personas)
+ * @updatePersona Integer (PersonaDTO personaDTO, Integer id)
+ * @deletePersona int (Integer id)
+
+ */
 
 import org.example.configuration.ConexionDB;
 import org.example.constants.Constants;
@@ -118,13 +129,13 @@ public class PersonaServiceImpl implements IPersonaService {
 
         try {
             conn = conexionDB.getConnection();
-            getPersona = getPersonaById(id);
-            stmt = conn.prepareStatement(Constants.SQL_UPDATE_PERSON);
+            getPersona = checkRegistroById(id , Constants.SQL_SELECT_PERSON_BY_ID);
+
             if (getPersona == 0){
 
                 throw new RuntimeException();
             }
-
+            stmt = conn.prepareStatement(Constants.SQL_UPDATE_PERSON);
             stmt.setString(1, personaDTO.getNombre());
             stmt.setString(2, personaDTO.getApellido());
             stmt.setInt(3, personaDTO.getEdad());
@@ -159,7 +170,7 @@ public class PersonaServiceImpl implements IPersonaService {
 
         try {
             conn = conexionDB.getConnection();
-            indDel = getPersonaById(id);
+            indDel = checkRegistroById(id , Constants.SQL_SELECT_PERSON_BY_ID);
             stmt = conn.prepareStatement(Constants.SQL_DELETE_PERSON);
             if (indDel == 0){
                 throw new RuntimeException();
@@ -185,14 +196,14 @@ public class PersonaServiceImpl implements IPersonaService {
         return id;
     }
 
-    public int getPersonaById (Integer id){
+    public int checkRegistroById (Integer id, String sqlConst){
             conexionDBaux = new ConexionDB();
         int response = 0;
         try {
             connaux = conexionDBaux.getConnection();
             //consultamos por el ID a ver si ya existe ne la base
 
-            stmtaux = connaux.prepareStatement(Constants.SQL_SELECT_PERSON_BY_ID);
+            stmtaux = connaux.prepareStatement(sqlConst);
             stmtaux.setInt(1, id);
             rsaux = stmtaux.executeQuery();
 
