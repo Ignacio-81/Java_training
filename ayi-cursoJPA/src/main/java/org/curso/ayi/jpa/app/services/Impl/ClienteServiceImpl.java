@@ -1,6 +1,8 @@
 package org.curso.ayi.jpa.app.services.Impl;
 
 import jakarta.persistence.EntityManager;
+import org.curso.ayi.jpa.app.dto.request.ClienteDTO;
+import org.curso.ayi.jpa.app.dto.response.ClienteResponseDTO;
 import org.curso.ayi.jpa.app.entity.Cliente;
 import org.curso.ayi.jpa.app.repositories.IClienteRepository;
 import org.curso.ayi.jpa.app.repositories.Impl.ClienteRepository;
@@ -16,7 +18,7 @@ import java.util.Optional;
 public class ClienteServiceImpl implements IClienteService {
 
     private EntityManager em;
-    private IClienteRepository<Cliente> iClienteRepository;
+    private IClienteRepository<ClienteResponseDTO> iClienteRepository;
 
     public ClienteServiceImpl(EntityManager em){
         this.em = em;
@@ -24,15 +26,15 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public List<Cliente> getAll(){
+    public List<ClienteResponseDTO> getAll(){
         return iClienteRepository.listar();
     }
 
     @Override
-    public Optional<Cliente> getById(Long id){
+    public Optional<ClienteResponseDTO> getById(Long id){
     //Optional sirve para saber que un objeto tiene otras condiciones, nos da la opcion de si "ispresent" .
         // se utiliza para manejar datos que pueden traer otra  informacion o nula.
-        Optional <Cliente> clienteById;
+        Optional <ClienteResponseDTO> clienteById;
 
         clienteById = Optional.ofNullable(iClienteRepository.getById(id));
 
@@ -47,7 +49,7 @@ public class ClienteServiceImpl implements IClienteService {
     @Override
     public void eliminar(Long id) {
 
-        Optional<Cliente> clienteById;
+        Optional<ClienteResponseDTO> clienteById;
         clienteById = Optional.ofNullable(iClienteRepository.getById(id));
         if (clienteById.isPresent()) {
             try {
@@ -64,10 +66,10 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public void update(Cliente cliente){
+    public void update(ClienteDTO cliente){
 
         if (cliente.getId() > 0 ) {
-            Optional<Cliente> clienteById;
+            Optional<ClienteResponseDTO> clienteById;
             clienteById = Optional.ofNullable(iClienteRepository.getById(cliente.getId()));
 
             if (clienteById.isPresent()) {
@@ -86,7 +88,7 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public void insert(Cliente cliente){
+    public void insert(ClienteDTO cliente){
 
             try {
                 em.getTransaction().begin();

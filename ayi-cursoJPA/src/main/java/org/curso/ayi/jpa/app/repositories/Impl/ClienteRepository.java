@@ -4,6 +4,8 @@ package org.curso.ayi.jpa.app.repositories.Impl;
  */
 
 import jakarta.persistence.EntityManager;
+import org.curso.ayi.jpa.app.dto.request.ClienteDTO;
+import org.curso.ayi.jpa.app.dto.response.ClienteResponseDTO;
 import org.curso.ayi.jpa.app.entity.Cliente;
 import org.curso.ayi.jpa.app.repositories.IClienteRepository;
 
@@ -25,19 +27,19 @@ public class ClienteRepository implements IClienteRepository {
     }
 
     @Override
-    public Cliente getById (Long id){
-        return em.find(Cliente.class,id);
+    public ClienteResponseDTO getById (Long id){
+        return em.find(ClienteResponseDTO.class,id);
     }
 
     @Override
-    public void insertar(Cliente cliente){
+    public void insertar(ClienteDTO cliente){
         // Modifico un objeto
             em.merge(cliente);
 
     }
 
     @Override
-    public void guardar(Cliente cliente){
+    public void guardar(ClienteDTO cliente){
         //Guardo un dato nuevo
 
             em.persist (cliente);
@@ -46,7 +48,7 @@ public class ClienteRepository implements IClienteRepository {
 
     @Override
     public void eliminar (Long id) {
-        Cliente cliente = getById(id);
+        ClienteResponseDTO cliente = getById(id);
         em.remove(cliente);
 
     }

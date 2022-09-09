@@ -2,6 +2,8 @@ package org.curso.ayi.jpa.app;
 
 import jakarta.persistence.EntityManager;
 import org.curso.ayi.jpa.app.configuration.JpaUtilDb;
+import org.curso.ayi.jpa.app.dto.request.ClienteDTO;
+import org.curso.ayi.jpa.app.dto.response.ClienteResponseDTO;
 import org.curso.ayi.jpa.app.entity.Cliente;
 import org.curso.ayi.jpa.app.services.IClienteService;
 import org.curso.ayi.jpa.app.services.Impl.ClienteServiceImpl;
@@ -18,7 +20,7 @@ public class JpaCrud {
         IClienteService service = new ClienteServiceImpl(em);
 
 /*        System.out.println("========== insertar nuevo cliente ===========");
-        Cliente cliente = new Cliente();
+        ClienteDTO cliente = new ClienteDTO();
         cliente.setNombre("Luci");
         cliente.setApellido("Mena");
         cliente.setFormaPago("paypal");
@@ -26,19 +28,19 @@ public class JpaCrud {
 
         service.insert(cliente);
         System.out.println("cliente guardado con exito");
-        service.getAll().forEach(System.out::println);
+        service.getAll().forEach(System.out::println);*/
 
 
         System.out.println("========== listar ==========");
-        List<Cliente> clientes = service.getAll();
-        clientes.forEach(System.out::println);*/
+        List<ClienteResponseDTO> clientes = service.getAll();
+        clientes.forEach(System.out::println);
 
-/*        System.out.println("========== obtener por id ==========");
-        Optional<Cliente> optionalCliente = service.getById(1L);
-        optionalCliente.ifPresent(System.out::println);*/
+        System.out.println("========== obtener por id ==========");
+        Optional<ClienteResponseDTO> optionalCliente = service.getById(1L);
+        optionalCliente.ifPresent(System.out::println);
 
         System.out.println("=========== editar cliente ==========");
-        Cliente cliente = new Cliente();
+        ClienteDTO cliente = new ClienteDTO();
         cliente.setId(6L);
         cliente.setNombre("Martin");
         cliente.setApellido("Guzman");
@@ -56,8 +58,6 @@ public class JpaCrud {
         }*/
 
         em.close();
-
-
 
     }
 
