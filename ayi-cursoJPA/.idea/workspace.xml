@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="feae8250-a85e-4d92-b59b-9ed5f44eddbf" name="Changes" comment="Crud en JPA">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/controller/ClienteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/dto/request/ClienteDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/dto/response/ClienteResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/mapper/ClienteMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/JpaCrud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/JpaCrud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/repositories/IClienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/repositories/IClienteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/repositories/Impl/ClienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/repositories/Impl/ClienteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/services/IClienteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/services/IClienteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/services/Impl/ClienteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/curso/ayi/jpa/app/services/Impl/ClienteServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/JpaCrud.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/repositories/IClienteRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/repositories/IClienteRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/repositories/Impl/ClienteRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/repositories/Impl/ClienteRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/services/IClienteService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/services/IClienteService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/services/Impl/ClienteServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/curso/ayi/jpa/app/services/Impl/ClienteServiceImpl.class" afterDir="false" />
-    </list>
+    <list default="true" id="feae8250-a85e-4d92-b59b-9ed5f44eddbf" name="Changes" comment="total structure crud JPA" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662754692935</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="total structure crud JPA">
+      <created>1662758550988</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1662758550988</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +116,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Clase JPA" />
     <MESSAGE value="Crud en JPA" />
-    <option name="LAST_COMMIT_MESSAGE" value="Crud en JPA" />
+    <MESSAGE value="total structure crud JPA" />
+    <option name="LAST_COMMIT_MESSAGE" value="total structure crud JPA" />
   </component>
 </project>
