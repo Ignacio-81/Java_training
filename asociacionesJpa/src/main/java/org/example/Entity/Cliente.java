@@ -1,4 +1,20 @@
 package org.example.Entity;
+/**
+ * Entidad Cliente
+ * Propiedades:
+ * @id Long;
+ * @nombre String;
+ * @Apellido String;
+ * @forma_pago String;
+ *
+ * Constructor:
+ * @nombre String,
+ * @apellido String,
+
+ * Metodos:
+ * @Seters - idCliente, vip,
+ * @Geters - idCliente, vip,
+ */
 
 import jakarta.persistence.*;
 import lombok.*;
