@@ -4,65 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="feae8250-a85e-4d92-b59b-9ed5f44eddbf" name="Changes" comment="Crud en JPA">
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/DispatcherAppMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/configuration/ConexionDB.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/constants/Constants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/controller/ClienteController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/controller/EmpleadoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/controller/PersonaController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/dto/request/ClienteDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/dto/request/EmpleadoDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/dto/request/PersonaDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/dto/response/ClienteResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/dto/response/EmpleadoResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/dto/response/PersonaResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/entity/Cliente.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/entity/Empleado.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/entity/Persona.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/mapper/ClienteMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/mapper/EmpleadoMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/mapper/PersonaMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/service/IClienteService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/service/IEmpleadoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/service/IPersonaService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/service/IServicios.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/service/Impl/ClienteServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/service/Impl/EmpleadoServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/src/main/java/org/example/service/Impl/PersonaServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/DispatcherAppMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/configuration/ConexionDB.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/constants/Constants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/controller/ClienteController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/controller/EmpleadoController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/controller/PersonaController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/dto/request/ClienteDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/dto/request/EmpleadoDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/dto/request/PersonaDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/dto/response/ClienteResponseDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/dto/response/EmpleadoResponseDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/dto/response/PersonaResponseDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/entity/Cliente.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/entity/Empleado.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/entity/Persona.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/mapper/ClienteMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/mapper/EmpleadoMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/mapper/PersonaMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/service/IClienteService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/service/IEmpleadoService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/service/IPersonaService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/service/IServicios.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/service/Impl/ClienteServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/service/Impl/EmpleadoServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Clase-10-DB/target/classes/org/example/service/Impl/PersonaServiceImpl.class" beforeDir="false" />
+    <list default="true" id="feae8250-a85e-4d92-b59b-9ed5f44eddbf" name="Changes" comment="total structure crud JPA">
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/src/main/java/org/example/Entity/Auditoria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/src/main/java/org/example/Entity/Cliente.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/src/main/java/org/example/Entity/Direccion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/src/main/java/org/example/HibernateAsociacionesOneToMany.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/src/main/java/org/example/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/src/main/java/org/example/configurations/JpaUtilDb.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../asociacionesJpa/src/main/resources/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,13 +65,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/Personal/AyiAcademy/Repo/Github/Clase-10-JDBC"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Personal/AyiAcademy/Repo/Github/ayi-cursoJPA&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.curso.ayi.jpa.app.services" />
