@@ -11,11 +11,13 @@
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="show_sql" value="true"/>
-            <!--<property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>-->
 
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+
+<!--            Crear actualizar tablas de la DB automaticamente utilziando los nombres de la metadata de las entities. por ejemplo
+            utilizar los nombres de las variables cuando no especificamos el nombre de la columna de la tabla-->
             <!-- Para crear las tablas a partir de la entidad automáticamente -->
-            <!--             <property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
             <!-- validate, update, create, create-drop -->
 
         </properties>

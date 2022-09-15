@@ -63,6 +63,11 @@ public class Cliente {
         this.nombre = nombre;
         this.apellido = apellido;
     }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    private List<Factura> facturas;
+
+
 /*    @Column (name = "fecha_creacion", nullable = false)
     private LocalDate fechaCreacion;*/
 
