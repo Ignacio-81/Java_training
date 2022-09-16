@@ -20,6 +20,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -48,8 +49,8 @@ public class Cliente {
     @Column (name = "forma_pago", nullable = false, length = 15)
     private String formaPago;
 
-/*    @Embedded
-    private Auditoria audit = new Auditoria();*/
+    @Embedded
+    private Auditoria audit = new Auditoria();
 
 
     @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
@@ -67,6 +68,24 @@ public class Cliente {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
     private List<Factura> facturas;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    private ClienteDetalle detalle;
+
+    @Override
+    public String toString() {
+        LocalDateTime creado = this.audit != null? audit.getCreadoEn():null;
+        LocalDateTime editado = this.audit != null? audit.getEditadoEn(): null;
+        return "{" + "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", formaPago='" + formaPago+ '\'' +
+                ", creadoEn='" + creado + '\'' +
+                ", editadoEn='" + editado + '\'' +
+                ", direcciones='" + direcciones +  '\'' +
+                ", facturas='" + facturas +  '\'' +
+                ", detalle='" + detalle +  '\'' +
+                '}';
+    }
 
 /*    @Column (name = "fecha_creacion", nullable = false)
     private LocalDate fechaCreacion;*/

@@ -1,4 +1,3 @@
-/*
 package org.example.Entity;
 
 import jakarta.persistence.Column;
@@ -46,4 +45,3 @@ import java.time.LocalDateTime;
 
 
     }
-*/
