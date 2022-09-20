@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="One to Many con JPA">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Alumno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/ClienteDetalle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Curso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/HibernateOneToOneBidirectional.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/HibernateOnetoOne.java" afterDir="false" />
+    <list default="true" id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="One to One">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/HibernateAsociacionesManyToMany.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Auditoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Auditoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Cliente.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,21 +57,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "D:/Personal/AyiAcademy/hibernate-jpa-asociaciones-app"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Personal/AyiAcademy/hibernate-jpa-asociaciones-app&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Personal\AyiAcademy\Repo\Github\asociacionesJpa\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example" />
       <recent name="org.example.Entity" />
       <recent name="org.example.configurations" />
     </key>
@@ -127,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663241705245</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="One to One">
+      <created>1663330700550</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663330700550</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -145,6 +147,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="comentarios" />
     <MESSAGE value="One to Many con JPA" />
-    <option name="LAST_COMMIT_MESSAGE" value="One to Many con JPA" />
+    <MESSAGE value="One to One" />
+    <option name="LAST_COMMIT_MESSAGE" value="One to One" />
   </component>
 </project>
