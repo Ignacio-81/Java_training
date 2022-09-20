@@ -1,6 +1,7 @@
 package org.example.Entity;
 /**
  * Entidad Cliente
+ * @Table (name = "clientes")
  * Propiedades:
  * @id Long;
  * @nombre String;

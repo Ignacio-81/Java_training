@@ -1,5 +1,22 @@
 package org.example.Entity;
-
+/**
+ * Entidad Alumno
+ *@Entity;
+ *@Table (name="alumnos");
+ * Propiedades:
+ * @id Long;
+ * @nombre String;
+ * @Apellido String;
+ *
+ * Constructor:
+ * @nombre String,
+ * @apellido String,
+ * @All,
+ *
+ * Metodos:
+ * @Seters - idCliente, vip,
+ * @Geters - idCliente, vip,
+ */
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
