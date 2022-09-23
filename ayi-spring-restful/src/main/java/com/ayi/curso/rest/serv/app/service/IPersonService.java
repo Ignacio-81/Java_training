@@ -7,5 +7,11 @@ import java.util.List;
 
 public interface IPersonService  {
 
-    public List<PersonResponseDTO> findAllPersons();
+    List<PersonResponseDTO> findAllPersons();
+
+    PersonResponseDTO findPersonById(Long idPerson);
+
+    // Este lo hice yo, ver después si funciona
+    List<PersonResponseDTO> findPersonByName(String firstName, String lastName);
+
 }
