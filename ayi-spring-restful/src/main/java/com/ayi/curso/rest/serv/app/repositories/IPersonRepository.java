@@ -1,6 +1,6 @@
-package com.ayi.curso.rest.serv.app.repository;
+package com.ayi.curso.rest.serv.app.repositories;
 
-import com.ayi.curso.rest.serv.app.entity.PersonEntity;
+import com.ayi.curso.rest.serv.app.entities.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

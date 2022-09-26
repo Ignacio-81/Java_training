@@ -1,6 +1,7 @@
 package com.ayi.curso.rest.serv.app.controller;
 
 
+import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
 import com.ayi.curso.rest.serv.app.service.IPersonService;
 import io.swagger.annotations.*;
@@ -8,10 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -106,4 +104,51 @@ public class PersonController { // La puerta de entrada al endpoint
         return ResponseEntity.ok(personResponseDTOs);
     }
 
+    @DeleteMapping(
+            value = "/deletePersonById/{id}"
+            //produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    @ApiOperation(
+            value = "Delete data associated to List Master by Id",
+            httpMethod = "DELETE",
+            response = PersonResponseDTO.class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    code = 200,
+                    message = "Body content with basic information for this Lists Master by Id"
+            ),
+            @ApiResponse(
+                    code = 400,
+                    message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
+    })
+    public ResponseEntity<PersonResponseDTO> deletePersonById(
+            @ApiParam(name = "id", required = true, value = "Person Id", example = "1")
+            @PathVariable("id") Long id) { // este "id" es lo que está entre llaves en el getmapping {id}
+
+        return ResponseEntity.ok(personService.removePersonById(id));
+    }
+
+    @PostMapping(
+            value = "/addPerson"
+    )
+    @ApiOperation(
+            value = "POST a new value on the Database",
+            httpMethod = "POST",
+            response = PersonResponseDTO.class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    code = 200,
+                    message = "Body content with basic information for this Lists Master by Id"
+            ),
+            @ApiResponse(
+                    code = 400,
+                    message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
+    })
+    public ResponseEntity<PersonResponseDTO> postPerson(@RequestBody PersonDTO persona){
+
+
+        return ResponseEntity.ok(personService.addPerson(persona));
+    }
 }

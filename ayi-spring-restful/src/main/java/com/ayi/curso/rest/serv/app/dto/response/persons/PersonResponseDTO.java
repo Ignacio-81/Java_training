@@ -22,27 +22,27 @@ public class PersonResponseDTO implements Serializable {
 
     private Long idPerson;
 
-    @ApiModelProperty(position = 1, notes = "Non negative value, The first name is required.")
+    @ApiModelProperty(position = 4, notes = "Non negative value, The first name is required.")
     private String firstName;
 
-    @ApiModelProperty(position = 2, notes = "Non negative value, The last name is required.")
+    @ApiModelProperty(position = 5, notes = "Non negative value, The last name is required.")
     private String lastName;
 
-    @ApiModelProperty(position = 3, notes = "Non negative value, The type document list is required.")
+    @ApiModelProperty(position = 7, notes = "Non negative value, The type document list is required.")
     private String typeDocument;
 
-    @ApiModelProperty(position = 4, notes = "Non negative value, The number document is required.")
+    @ApiModelProperty(position = 6, notes = "Non negative value, The number document is required.")
     private Integer numberDocument;
 
-    @ApiModelProperty(position = 5, notes = "Non negative value, The Born date is required.")
+    @ApiModelProperty(position = 1, notes = "Non negative value, The Born date is required.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateBorn;
 
-    @ApiModelProperty(position = 6, notes = "Date Created Person")
+    @ApiModelProperty(position = 2, notes = "Date Created Person")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateCreated;
 
-    @ApiModelProperty(position = 7, notes = "Date Modified Person")
+    @ApiModelProperty(position = 3, notes = "Date Modified Person")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateModified;
 

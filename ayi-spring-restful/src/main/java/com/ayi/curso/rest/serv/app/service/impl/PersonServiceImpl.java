@@ -1,9 +1,10 @@
 package com.ayi.curso.rest.serv.app.service.impl;
 
+import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
-import com.ayi.curso.rest.serv.app.entity.PersonEntity;
+import com.ayi.curso.rest.serv.app.entities.PersonEntity;
 import com.ayi.curso.rest.serv.app.mapper.IPersonMapper;
-import com.ayi.curso.rest.serv.app.repository.IPersonRepository;
+import com.ayi.curso.rest.serv.app.repositories.IPersonRepository;
 import com.ayi.curso.rest.serv.app.service.IPersonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -85,5 +86,40 @@ public class PersonServiceImpl implements IPersonService {
                 .collect(Collectors.toList());
 
         return personResponseDTOs;
+    }
+
+    @Override
+    public PersonResponseDTO removePersonById(Long idPerson) {
+        PersonResponseDTO personResponseDTO;
+
+        Optional<PersonEntity> entity = personRepository.findById(idPerson); // Ya tengo todos los métodos para buscar, deletear, etc
+
+        if (!entity.isPresent()) {
+            throw new RuntimeException("Error no existe el id de persona buscado");
+        }
+
+        personRepository.deleteById(idPerson);
+        personResponseDTO = personMapper.entityToDto(entity.get());
+        return personResponseDTO;
+
+    }
+
+    @Override
+    public PersonResponseDTO addPerson(PersonDTO persona) {
+        PersonResponseDTO personResponseDTO;
+
+        PersonEntity entity = new PersonEntity(
+                persona.getFirstName(),
+                persona.getLastName(),
+                persona.getTypeDocument(),
+                persona.getNumberDocument(),
+                persona.getDateBorn()
+        );
+
+        personRepository.save(entity);
+
+        personResponseDTO = personMapper.entityToDto(entity);
+        return personResponseDTO;
+
     }
 }

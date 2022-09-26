@@ -1,5 +1,6 @@
 package com.ayi.curso.rest.serv.app.dto.request.persons;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -19,26 +20,30 @@ import java.time.LocalDate;
 
 public class PersonDTO implements Serializable {
 
-    @ApiModelProperty(position = 1, required = true, notes = "Non negative value, The first name is required.")
+    @ApiModelProperty(position = 4, notes = "Non negative value, The first name is required.")
     private String firstName;
 
-    @ApiModelProperty(position = 2, required = true, notes = "Non negative value, The last name is required.")
+    @ApiModelProperty(position = 5, notes = "Non negative value, The last name is required.")
     private String lastName;
 
-    @ApiModelProperty(position = 3, required = true, notes = "Non negative value, The type document list is required.")
+    @ApiModelProperty(position = 7, notes = "Non negative value, The type document list is required.")
     private String typeDocument;
 
-    @ApiModelProperty(position = 4, required = true, notes = "Non negative value, The number document is required.")
+    @ApiModelProperty(position = 6, notes = "Non negative value, The number document is required.")
     private Integer numberDocument;
 
-    @ApiModelProperty(position = 5, required = true, notes = "Non negative value, The Date Born is required.")
+    @ApiModelProperty(position = 1, notes = "Non negative value, The Born date is required.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateBorn;
 
-    @ApiModelProperty(position = 6, required = true, notes = "Non negative value, The date Created list is required.")
+    @ApiModelProperty(position = 2, notes = "Date Created Person")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateCreated;
 
-    @ApiModelProperty(position = 7, notes = "Non negative value, The Date modified list is required.")
+    @ApiModelProperty(position = 3, notes = "Date Modified Person")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateModified;
+
 
 
 

@@ -1,7 +1,8 @@
 package com.ayi.curso.rest.serv.app.service;
 
+import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
-import com.ayi.curso.rest.serv.app.repository.IPersonRepository;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -13,5 +14,9 @@ public interface IPersonService  {
 
     // Este lo hice yo, ver después si funciona
     List<PersonResponseDTO> findPersonByName(String firstName, String lastName);
+
+    public PersonResponseDTO removePersonById(Long idPerson);
+
+    public PersonResponseDTO addPerson(PersonDTO persona);
 
 }

@@ -14,9 +14,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@Configuration
-@EnableSwagger2
-@EnableWebMvc
+@Configuration // Esto le dice al programa principal que acá hay una config que tiene que escanear
+@EnableSwagger2 // Habilita el servicio
+@EnableWebMvc // Habilita el contexto, para que se pueda levantar la página web donde tengo los servicios REST
 public class SwaggerConfig extends WebMvcConfigurerAdapter {
     @Bean
     public Docket api() {

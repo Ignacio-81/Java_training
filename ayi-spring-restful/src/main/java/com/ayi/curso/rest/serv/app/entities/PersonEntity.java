@@ -1,4 +1,4 @@
-package com.ayi.curso.rest.serv.app.entity;
+package com.ayi.curso.rest.serv.app.entities;
 
 import lombok.*;
 
