@@ -7,6 +7,7 @@ import com.ayi.curso.rest.serv.app.service.IPersonService;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -110,23 +111,25 @@ public class PersonController { // La puerta de entrada al endpoint
     )
     @ApiOperation(
             value = "Delete data associated to List Master by Id",
-            httpMethod = "DELETE",
-            response = PersonResponseDTO.class
+            httpMethod = "DELETE"
+            //response = PersonResponseDTO.class
     )
     @ApiResponses(value = {
             @ApiResponse(
-                    code = 200,
-                    message = "Body content with basic information for this Lists Master by Id"
+                    code = 204, //204 operacion OK , no devuelve informacion de la accion
+                    message = "Se ha borrado correctamente"
             ),
             @ApiResponse(
                     code = 400,
                     message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
     })
-    public ResponseEntity<PersonResponseDTO> deletePersonById(
+    public ResponseEntity<Void> deletePersonById(
             @ApiParam(name = "id", required = true, value = "Person Id", example = "1")
             @PathVariable("id") Long id) { // este "id" es lo que está entre llaves en el getmapping {id}
 
-        return ResponseEntity.ok(personService.removePersonById(id));
+        personService.removePersonById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping(
@@ -139,16 +142,17 @@ public class PersonController { // La puerta de entrada al endpoint
     )
     @ApiResponses(value = {
             @ApiResponse(
-                    code = 200,
-                    message = "Body content with basic information for this Lists Master by Id"
+                    code = 201, // la respuesta es CREATED
+                    message = "La nueva persona fue creada"
             ),
             @ApiResponse(
                     code = 400,
-                    message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
+                    message = "Error")
     })
     public ResponseEntity<PersonResponseDTO> postPerson(@RequestBody PersonDTO persona){
 
+        return new ResponseEntity<>(personService.addPerson(persona), HttpStatus.CREATED);
 
-        return ResponseEntity.ok(personService.addPerson(persona));
+        //return ResponseEntity.ok(personService.addPerson(persona));
     }
 }

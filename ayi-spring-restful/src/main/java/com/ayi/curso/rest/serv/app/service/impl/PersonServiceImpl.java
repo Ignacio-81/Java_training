@@ -89,8 +89,8 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public PersonResponseDTO removePersonById(Long idPerson) {
-        PersonResponseDTO personResponseDTO;
+    public void removePersonById(Long idPerson) {
+        //PersonResponseDTO personResponseDTO;
 
         Optional<PersonEntity> entity = personRepository.findById(idPerson); // Ya tengo todos los métodos para buscar, deletear, etc
 
@@ -99,8 +99,8 @@ public class PersonServiceImpl implements IPersonService {
         }
 
         personRepository.deleteById(idPerson);
-        personResponseDTO = personMapper.entityToDto(entity.get());
-        return personResponseDTO;
+        //personResponseDTO = personMapper.entityToDto(entity.get());
+        //return personResponseDTO;
 
     }
 

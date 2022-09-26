@@ -6,6 +6,7 @@ spring:
   # Datasource settings, se debe agregar la informacion de la base de datos local.
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}?currentSchema=${DB_SCHEMA}?createDatabaseIfNotExist=true
     url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}?currentSchema=${DB_SCHEMA}
     username: "root" #${DB_USERNAME}
     password: "28158598" #${DB_PASSWORD}
@@ -15,7 +16,12 @@ spring:
         show_sql: true
         format_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update #validate | update | create | create-drop
+
+#sql:
+#  init:
+#    mode: always
+#    data-locations: classpath:data.sql
 
 # Swagger settings.
 springfox:

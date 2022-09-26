@@ -15,7 +15,7 @@ public interface IPersonService  {
     // Este lo hice yo, ver después si funciona
     List<PersonResponseDTO> findPersonByName(String firstName, String lastName);
 
-    public PersonResponseDTO removePersonById(Long idPerson);
+    public void removePersonById(Long idPerson);
 
     public PersonResponseDTO addPerson(PersonDTO persona);
 

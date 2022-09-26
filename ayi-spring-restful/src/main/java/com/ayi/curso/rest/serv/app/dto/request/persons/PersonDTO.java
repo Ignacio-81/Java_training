@@ -1,6 +1,8 @@
 package com.ayi.curso.rest.serv.app.dto.request.persons;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.validation.constraints.NotNull;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -21,6 +23,7 @@ import java.time.LocalDate;
 public class PersonDTO implements Serializable {
 
     @ApiModelProperty(position = 4, notes = "Non negative value, The first name is required.")
+    @NotNull //Filtramos antes que el valor no sea nulo para no llegar a la base y que la misma responda que no es posible.
     private String firstName;
 
     @ApiModelProperty(position = 5, notes = "Non negative value, The last name is required.")
