@@ -155,4 +155,25 @@ public class PersonController { // La puerta de entrada al endpoint
 
         //return ResponseEntity.ok(personService.addPerson(persona));
     }
+    @GetMapping(value = "/getAllPersons/{page}/{size}")
+    @ApiOperation(
+            value = "Retrieves all Lists Persons",
+            httpMethod = "GET",
+            response = PersonResponseDTO[].class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,
+                    message = "Body content with basic information about persons",
+                    response = PersonResponseDTO[].class),
+            @ApiResponse(
+                    code = 400,
+                    message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
+    })
+    public ResponseEntity<List<PersonResponseDTO>> getAllPersonsForPage() {
+
+        List<PersonResponseDTO> personResponseDTOs = personService.findAllPersons();
+        return ResponseEntity.ok(personResponseDTOs);
+
+    }
+
 }

@@ -2,6 +2,7 @@ package com.ayi.curso.rest.serv.app.service.impl;
 
 import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
+import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTOFull;
 import com.ayi.curso.rest.serv.app.entities.PersonEntity;
 import com.ayi.curso.rest.serv.app.mapper.IPersonMapper;
 import com.ayi.curso.rest.serv.app.repositories.IPersonRepository;
@@ -9,9 +10,13 @@ import com.ayi.curso.rest.serv.app.service.IPersonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -121,5 +126,20 @@ public class PersonServiceImpl implements IPersonService {
         personResponseDTO = personMapper.entityToDto(entity);
         return personResponseDTO;
 
+    }
+    @Override
+    public PersonResponseDTOFull findAllPersonsForPage(Integer page , Integer size) { // Me devuelve todas las personas de la tabla
+
+        PersonResponseDTOFull personResponseDTOFull;
+        List<PersonResponseDTO> personResponseDTOs;
+
+        Pageable pageable = (Pageable) PageRequest.of(page, size);
+
+        Page<PersonEntity> personEntities = personRepository.findAll(pageable);
+
+
+
+
+        return personResponseDTOs;
     }
 }
