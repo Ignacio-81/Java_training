@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="feae8250-a85e-4d92-b59b-9ed5f44eddbf" name="Changes" comment="total structure crud JPA" />
+    <list default="true" id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="conflict" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,14 +48,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/Personal/AyiAcademy/Repo/Github/ayi-cursoJPA",
-    "settings.editor.selected.configurable": "configurable.group.tools"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Personal/AyiAcademy/Repo/Github/ayi-cursoJPA&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.curso.ayi.jpa.app.services" />
@@ -99,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662758550988</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="conflict">
+      <created>1664277533403</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1664277533403</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -117,6 +124,7 @@
     <MESSAGE value="Clase JPA" />
     <MESSAGE value="Crud en JPA" />
     <MESSAGE value="total structure crud JPA" />
-    <option name="LAST_COMMIT_MESSAGE" value="total structure crud JPA" />
+    <MESSAGE value="conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="conflict" />
   </component>
 </project>
