@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="feae8250-a85e-4d92-b59b-9ed5f44eddbf" name="Changes" comment="Crud en JPA" />
+    <list default="true" id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="workspace">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="JpbToolWindowState">
@@ -52,7 +59,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/Personal/AyiAcademy/Repo/Github/ayi-cursoJPA"
+    "last_opened_file_path": "D:/Personal/AyiAcademy/Repo/Github/ayi-spring-restful"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -64,7 +71,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="feae8250-a85e-4d92-b59b-9ed5f44eddbf" name="Changes" comment="" />
+      <changelist id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="workspace" />
       <created>1662416252670</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

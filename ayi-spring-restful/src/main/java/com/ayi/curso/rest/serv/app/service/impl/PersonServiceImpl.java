@@ -128,18 +128,24 @@ public class PersonServiceImpl implements IPersonService {
 
     }
     @Override
-    public PersonResponseDTOFull findAllPersonsForPage(Integer page , Integer size) { // Me devuelve todas las personas de la tabla
+    public PersonResponseDTOFull getPersonAllForPage(Integer page, Integer size) {
 
         PersonResponseDTOFull personResponseDTOFull;
-        List<PersonResponseDTO> personResponseDTOs;
 
-        Pageable pageable = (Pageable) PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size);
 
-        Page<PersonEntity> personEntities = personRepository.findAll(pageable);
+        Page<PersonEntity> personEntityPages = personRepository.findAll(pageable);
 
+        if (personEntityPages != null && !personEntityPages.isEmpty())  {
+            personResponseDTOFull = personMapper.listPersonDTOs(personEntityPages.getContent());
+            personResponseDTOFull.setSize(personEntityPages.getSize());
+            personResponseDTOFull.setCurrentPage(personEntityPages.getNumber() + 1);
+            personResponseDTOFull.setTotalPages(personEntityPages.getTotalPages());
+            personResponseDTOFull.setTotalElements((int) personEntityPages.getTotalElements());
+            return personResponseDTOFull;
+        } else {
+            throw new RuntimeException("Error no identificado de runtime");
+        }
 
-
-
-        return personResponseDTOs;
     }
 }

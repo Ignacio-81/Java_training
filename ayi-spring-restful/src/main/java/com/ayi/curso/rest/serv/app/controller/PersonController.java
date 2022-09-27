@@ -3,6 +3,7 @@ package com.ayi.curso.rest.serv.app.controller;
 
 import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
+import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTOFull;
 import com.ayi.curso.rest.serv.app.service.IPersonService;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Api(value = "Person API", tags = {"Persons Service"}) // Le decimos a Swagger que hay una transacción nueva, y que se llama Person Service (Es lo que se ve en grande en el Swagger)
@@ -155,7 +158,7 @@ public class PersonController { // La puerta de entrada al endpoint
 
         //return ResponseEntity.ok(personService.addPerson(persona));
     }
-    @GetMapping(value = "/getAllPersons/{page}/{size}")
+    @GetMapping(value = "/getAllPerson/{page}/{size}")
     @ApiOperation(
             value = "Retrieves all Lists Persons",
             httpMethod = "GET",
@@ -169,11 +172,28 @@ public class PersonController { // La puerta de entrada al endpoint
                     code = 400,
                     message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
     })
-    public ResponseEntity<List<PersonResponseDTO>> getAllPersonsForPage() {
+    public ResponseEntity<?> getAllPersonsForPage(
+            @ApiParam(value = "page to display", required = true, example = "1")
+            @PathVariable(name = "page") Integer page,
+            @ApiParam(value = "number of items per request", required = true, example = "1")
+            @PathVariable(name = "size") Integer size) {
 
-        List<PersonResponseDTO> personResponseDTOs = personService.findAllPersons();
-        return ResponseEntity.ok(personResponseDTOs);
+        PersonResponseDTOFull personResponseFullDTOs = null;
+        Map<String, Object> response = new HashMap<>();
+
+        personResponseFullDTOs = personService.getPersonAllForPage(page, size);
+
+
+        if (personResponseFullDTOs == null  ) {
+
+            response.put("Mensaje", "No existe informacion de Personas en el sistema");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(personResponseFullDTOs, HttpStatus.OK);
+
 
     }
+
 
 }

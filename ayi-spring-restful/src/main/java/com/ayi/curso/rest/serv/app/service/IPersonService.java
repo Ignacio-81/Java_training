@@ -2,6 +2,7 @@ package com.ayi.curso.rest.serv.app.service;
 
 import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
+import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTOFull;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,4 +20,5 @@ public interface IPersonService  {
 
     public PersonResponseDTO addPerson(PersonDTO persona);
 
+    PersonResponseDTOFull getPersonAllForPage(Integer page, Integer size);
 }
