@@ -148,4 +148,22 @@ public class PersonServiceImpl implements IPersonService {
         }
 
     }
+
+    @Override
+    public PersonResponseDTO updatePersonById(Long idPerson, PersonDTO personaDTO) {
+        PersonResponseDTO personResponseDTO;
+
+        Optional<PersonEntity> entity = personRepository.findById(idPerson);
+
+        if (!entity.isPresent()) { //Verifico que la persona a modificar existe
+            throw new RuntimeException("Error no existe el id de persona buscado");
+        }
+
+
+        Integer result = personRepository.putPersonById(idPerson, personaDTO.getNumberDocument(), personaDTO.getTypeDocument(),
+                personaDTO.getFirstName(), personaDTO.getLastName(), personaDTO.getDateBorn());
+        PersonEntity person = personRepository.getReferenceById(idPerson);
+        personResponseDTO = personMapper.entityToDto(person);
+        return personResponseDTO;
+    }
 }

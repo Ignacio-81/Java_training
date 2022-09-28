@@ -21,4 +21,6 @@ public interface IPersonService  {
     public PersonResponseDTO addPerson(PersonDTO persona);
 
     PersonResponseDTOFull getPersonAllForPage(Integer page, Integer size);
+
+    PersonResponseDTO updatePersonById(Long idPerson, PersonDTO personaDTO);
 }

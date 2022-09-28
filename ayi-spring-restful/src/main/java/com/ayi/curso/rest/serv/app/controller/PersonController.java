@@ -194,6 +194,33 @@ public class PersonController { // La puerta de entrada al endpoint
 
 
     }
+    @PutMapping(
+            value = "/putPersonById/{id}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
 
+            )
+    @ApiOperation(
+            value = "Update data associated to List by Id",
+            httpMethod = "PUT",
+            response = PersonResponseDTO.class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    code = 201,
+                    message = "Body content with basic information for this Lists Master by Id"
+            ),
+            @ApiResponse(
+                    code = 400,
+                    message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
+    })
+    public ResponseEntity<PersonResponseDTO> putPersonById(
+            @ApiParam(name = "id", required = true, value = "Person Id", example = "1")
+            @PathVariable("id") Long id,
+            @RequestBody PersonDTO persona) { // id = ID de la persona a modificar / persona = datos a actualizar.
+
+        return new ResponseEntity<>(personService.updatePersonById(id,persona), HttpStatus.CREATED);
+
+    }
 
 }
