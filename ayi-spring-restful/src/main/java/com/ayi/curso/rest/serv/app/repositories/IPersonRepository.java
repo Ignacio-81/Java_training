@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IPersonRepository extends JpaRepository<PersonEntity, Long> {
@@ -21,4 +22,7 @@ public interface IPersonRepository extends JpaRepository<PersonEntity, Long> {
             "P.lastName=:ape, P.dateBorn=:fec_nac WHERE P.idPerson = :id") // P es un alias, dame todos los registros que tengan el name = **** y el apellido = ***
     Integer putPersonById(@Param("id") Long id, @Param("dni") Integer dni, @Param("t_doc") String t_doc,
     @Param("nombre") String nom, @Param("ape") String ape, @Param ("fec_nac") LocalDate fec_nac);
+
+    @Query("Select P from PersonEntity P where P.numberDocument = :dni")
+    Optional<PersonEntity> getPersonByDNI(@Param("dni") Integer dni);
 }

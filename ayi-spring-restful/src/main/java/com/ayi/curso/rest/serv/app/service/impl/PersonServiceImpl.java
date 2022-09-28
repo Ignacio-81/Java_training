@@ -113,6 +113,12 @@ public class PersonServiceImpl implements IPersonService {
     public PersonResponseDTO addPerson(PersonDTO persona) {
         PersonResponseDTO personResponseDTO;
 
+        Optional<PersonEntity> entity_check = personRepository.getPersonByDNI(persona.getNumberDocument()); // Ya tengo todos los métodos para buscar, deletear, etc
+
+        if (entity_check.isPresent()) {
+            throw new RuntimeException("Error el DNI ya existe en la Base");
+        }
+
         PersonEntity entity = new PersonEntity(
                 persona.getFirstName(),
                 persona.getLastName(),
