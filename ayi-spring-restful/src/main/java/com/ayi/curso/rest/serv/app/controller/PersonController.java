@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,6 +234,7 @@ public class PersonController { // La puerta de entrada al endpoint
     public ResponseEntity<PersonResponseDTO> putPersonById(
             @ApiParam(name = "id", required = true, value = "Person Id", example = "1")
             @PathVariable("id") Long id,
+            @Valid //Es para validar que viene un dato en el body , si esta vacio da error
             @RequestBody PersonDTO persona) { // id = ID de la persona a modificar / persona = datos a actualizar.
 
         return new ResponseEntity<>(personService.updatePersonById(id,persona), HttpStatus.CREATED);

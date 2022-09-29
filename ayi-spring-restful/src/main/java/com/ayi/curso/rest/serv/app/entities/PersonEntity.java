@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @ToString
 @Builder
 @Entity
-@Table(name = "persona")
+@Table(name = "persona", indexes = @Index(name = "uniqueIndexPersona", columnList = "nombre, apellido", unique = true))
 public class PersonEntity implements Serializable {
 
     @Id
