@@ -24,4 +24,6 @@ public interface IPersonService  {
     PersonResponseDTOFull getPersonAllForPage(Integer page, Integer size);
 
     PersonResponseDTO updatePersonById(Long idPerson, PersonDTO personaDTO);
+
+/*    PersonResponseDTO updatePerson(Long idPerson, PersonDTO request);*/
 }

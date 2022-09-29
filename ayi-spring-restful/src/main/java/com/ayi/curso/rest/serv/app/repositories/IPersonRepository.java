@@ -17,11 +17,11 @@ public interface IPersonRepository extends JpaRepository<PersonEntity, Long> {
     @Query("Select PE from PersonEntity PE where PE.firstName = :name and PE.lastName = :ape") // PE es un alias, dame todos los registros que tengan el name = **** y el apellido = ***
     List<PersonEntity> getPersonByName(@Param("name") String name, @Param("ape") String ape); // Una lista, porque si el apellido es Garcia pueden haber repetidos
 
-    @Modifying
+/*    @Modifying
     @Query("UPDATE PersonEntity P SET P.numberDocument = :dni , P.typeDocument = :t_doc, P.firstName=:nombre," +
             "P.lastName=:ape, P.dateBorn=:fec_nac WHERE P.idPerson = :id") // P es un alias, dame todos los registros que tengan el name = **** y el apellido = ***
     Integer putPersonById(@Param("id") Long id, @Param("dni") Integer dni, @Param("t_doc") String t_doc,
-    @Param("nombre") String nom, @Param("ape") String ape, @Param ("fec_nac") LocalDate fec_nac);
+    @Param("nombre") String nom, @Param("ape") String ape, @Param ("fec_nac") LocalDate fec_nac);*/
 
     @Query("Select P from PersonEntity P where P.numberDocument = :dni")
     Optional<PersonEntity> getPersonByDNI(@Param("dni") Integer dni);

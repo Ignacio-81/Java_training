@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -164,7 +165,7 @@ public class PersonServiceImpl implements IPersonService {
 
     }
 
-    @Override
+    /*@Override
     public PersonResponseDTO updatePersonById(Long idPerson, PersonDTO personaDTO) {
         PersonResponseDTO personResponseDTO;
 
@@ -173,7 +174,6 @@ public class PersonServiceImpl implements IPersonService {
         if (!entity.isPresent()) { //Verifico que la persona a modificar existe
             throw new RuntimeException("Error no existe el id de persona buscado");
         }
-
 
         Integer result = personRepository.putPersonById(
                 idPerson,
@@ -186,5 +186,38 @@ public class PersonServiceImpl implements IPersonService {
         PersonEntity person = personRepository.getReferenceById(idPerson);
         personResponseDTO = personMapper.entityToDto(person);
         return personResponseDTO;
+    }*/
+
+/*    @Override
+    public PersonResponseDTO updatePerson(Long idPerson, PersonDTO request) {
+        PersonEntity entity = personRepository.findById(idPerson)
+                .map(personEntity -> {
+                    LocalDate dateCreated = personEntity.getDateCreated();
+
+                    personEntity = personMapper.dtoToEntity(request);
+                    personEntity.setIdPerson(idPerson);
+                    personEntity.setDateCreated(dateCreated);
+                    personEntity.setDateModified(LocalDate.now());
+
+                    return personRepository.save(personEntity);
+                }).orElseThrow(() -> new RuntimeException("ID NOT FOUND"));
+
+        return personMapper.entityToDto(entity);
+    }*/
+    public PersonResponseDTO updatePersonById(Long idPerson, PersonDTO personaDTO) {
+
+        Optional<PersonEntity> entity = personRepository.findById(idPerson);
+        if (!entity.isPresent()) { //Verifico que la persona a modificar existe
+            throw new RuntimeException("Error no existe el id de persona buscado");
+        }
+        PersonEntity personRequest = entity.get();
+        LocalDate dateCreated = personRequest.getDateCreated();
+        personRequest = personMapper.dtoToEntity(personaDTO);
+        personRequest.setDateCreated(dateCreated);
+        personRequest.setDateModified(LocalDate.now());
+        personRequest.setIdPerson(idPerson);
+        personRepository.save(personRequest);
+
+        return personMapper.entityToDto(personRequest);
     }
 }
