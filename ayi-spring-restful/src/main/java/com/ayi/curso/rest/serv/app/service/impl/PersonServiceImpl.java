@@ -4,6 +4,7 @@ import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTOFull;
 import com.ayi.curso.rest.serv.app.entities.PersonEntity;
+import com.ayi.curso.rest.serv.app.exception.ReadAccessException;
 import com.ayi.curso.rest.serv.app.mapper.IPersonMapper;
 import com.ayi.curso.rest.serv.app.repositories.IPersonRepository;
 import com.ayi.curso.rest.serv.app.service.IPersonService;
@@ -35,11 +36,15 @@ public class PersonServiceImpl implements IPersonService {
     private IPersonMapper personMapper; // Acá uso los mapper (me transforma una entidad a otra)
 
     @Override
-    public List<PersonResponseDTO> findAllPersons() { // Me devuelve todas las personas de la tabla
+    public List<PersonResponseDTO> findAllPersons() throws ReadAccessException { // Me devuelve todas las personas de la tabla
 
         List<PersonResponseDTO> personResponseDTOs;
 
         List<PersonEntity> personEntities = personRepository.findAll();
+
+        if (personEntities == null ||  personEntities.size() == 0 ){ // si tengo un error de lectura
+            throw new ReadAccessException("No existe registros para personas");
+        }
 
         personResponseDTOs = personEntities.stream()
                 .map(lt -> new PersonResponseDTO(
@@ -58,8 +63,12 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public PersonResponseDTO findPersonById(Long idPerson) {
+    public PersonResponseDTO findPersonById(Long idPerson) throws ReadAccessException {
         PersonResponseDTO personResponseDTO;
+
+        if (idPerson == null || idPerson <= 0) {
+            throw new ReadAccessException("ERROR, EL ID ES NULO O MENOR A 0.");
+        }
 
         Optional<PersonEntity> entity = personRepository.findById(idPerson); // Ya tengo todos los métodos para buscar, deletear, etc
 
@@ -166,8 +175,14 @@ public class PersonServiceImpl implements IPersonService {
         }
 
 
-        Integer result = personRepository.putPersonById(idPerson, personaDTO.getNumberDocument(), personaDTO.getTypeDocument(),
-                personaDTO.getFirstName(), personaDTO.getLastName(), personaDTO.getDateBorn());
+        Integer result = personRepository.putPersonById(
+                idPerson,
+                personaDTO.getNumberDocument(),
+                personaDTO.getTypeDocument(),
+                personaDTO.getFirstName(),
+                personaDTO.getLastName(),
+                personaDTO.getDateBorn()
+        );
         PersonEntity person = personRepository.getReferenceById(idPerson);
         personResponseDTO = personMapper.entityToDto(person);
         return personResponseDTO;
