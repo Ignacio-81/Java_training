@@ -4,11 +4,13 @@ package com.ayi.curso.rest.serv.app.controller;
 import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTOFull;
+import com.ayi.curso.rest.serv.app.exception.DataBaseException;
 import com.ayi.curso.rest.serv.app.exception.ReadAccessException;
 import com.ayi.curso.rest.serv.app.service.IPersonService;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import java.util.Map;
 @RestController // Esto es un controlador REST. @Controller es para un controlador MVC, no es REST
 public class PersonController { // La puerta de entrada al endpoint
 
+    @Autowired
     private IPersonService personService; // Acá traigo la interfaz del servicio
 
     /*
@@ -48,15 +51,19 @@ public class PersonController { // La puerta de entrada al endpoint
                     code = 400, // Hubo algún error
                     message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
     }) // Documento tdo mi Swagger
-    public ResponseEntity<List<PersonResponseDTO>> getAllPersons() throws ReadAccessException { // Antes solo devolvíamos la lista de PersonResponseDTO, ahora vamos a guardar esa lista en un ResponseEntity
+    public ResponseEntity<?> getAllPersons() { // Antes solo devolvíamos la lista de PersonResponseDTO, ahora vamos a guardar esa lista en un ResponseEntity
         // Ésta es una estructura que nos permite intercambiar contenido a nivel de HTTP (cabeceras, body, los errores, tdo lo que tenga que ver con la respuesta de nuestro servicio)
 
 
         List<PersonResponseDTO> personResponseDTOs = null;
+        Map<String, Object> response = new HashMap<>();
+
         try{
             personResponseDTOs = personService.findAllPersons();
         }catch(ReadAccessException e){
-            e.printStackTrace();
+            response.put("Error", HttpStatus.NOT_FOUND.toString());
+            response.put("Mensaje", e.getMessage());
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(personResponseDTOs); // ResponseEntity.[ver métodos]
 
@@ -84,16 +91,23 @@ public class PersonController { // La puerta de entrada al endpoint
             @ApiParam(name = "id", required = true, value = "Person Id", example = "1")
             @PathVariable("id") Long id) { // este "id" es lo que está entre llaves en el getmapping {id}
 
-        try {
-            return ResponseEntity.ok(personService.findPersonById(id));
+        Map<String, Object> response = new HashMap<>();
+        PersonResponseDTO personResponse = null;
+        try{
+            personResponse = personService.findPersonById(id);
         } catch (ReadAccessException e) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("Codigo Error", 1002);
-            response.put("Mensaje de error", e.getMessage());
+            response.put("Mensaje", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+        log.info("Leaving getPersonById [response]: {}", PersonResponseDTO.builder().build().getIdPerson());
+        return new ResponseEntity<>(personResponse, HttpStatus.ACCEPTED);
+/*        if (personResponse == null ) {
 
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            response.put("Mensaje", "La persona con el ID: " .concat(id.toString()).concat(" No existe en base de datos" ));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
 
+        return new ResponseEntity<PersonResponseDTO>(personResponse, HttpStatus.OK);*/
 
     }
 
@@ -143,12 +157,18 @@ public class PersonController { // La puerta de entrada al endpoint
                     code = 400,
                     message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
     })
-    public ResponseEntity<Void> deletePersonById(
+    public ResponseEntity<?> deletePersonById(
             @ApiParam(name = "id", required = true, value = "Person Id", example = "1")
             @PathVariable("id") Long id) { // este "id" es lo que está entre llaves en el getmapping {id}
 
-        personService.removePersonById(id);
+        Map<String, Object> response = new HashMap<>();
 
+        try {
+        personService.removePersonById(id);
+        } catch (ReadAccessException e) {
+            response.put("Mensaje", e.getMessage());
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
         return ResponseEntity.noContent().build();
     }
 
@@ -169,11 +189,30 @@ public class PersonController { // La puerta de entrada al endpoint
                     code = 400,
                     message = "Error")
     })
-    public ResponseEntity<PersonResponseDTO> postPerson(@RequestBody PersonDTO persona){
+    public ResponseEntity<?> postPerson(
+            @ApiParam(name = "PersonDTO", value = "Payload data to create the new Person")
+            @RequestBody PersonDTO personDTO) {
+        log.info("Entering add Person [request]: {}", personDTO);
 
-        return new ResponseEntity<>(personService.addPerson(persona), HttpStatus.CREATED);
+        Map<String, Object> response = new HashMap<>();
+        PersonResponseDTO personResponseDTO = null;
+        try {
+            personResponseDTO = personService.addPerson(personDTO);
+        } catch (ReadAccessException e) {
+            response.put("Mensaje", e.getMessage());
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        } catch (RuntimeException e) {
+            //response.put("Mensaje", e.getMessage());
+            response.put("Mensaje", "Error del sistema, ponganse en contanto con el administrador");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (DataBaseException e) {
+            response.put("Mensaje", "Prueba de error database");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        log.info("Leaving addPerson [response]: {}", PersonResponseDTO.builder().build().getIdPerson());
+        return new ResponseEntity<>(personResponseDTO, HttpStatus.CREATED);
 
-        //return ResponseEntity.ok(personService.addPerson(persona));
+
     }
     @GetMapping(value = "/getAllPerson/{page}/{size}")
     @ApiOperation(
@@ -193,20 +232,17 @@ public class PersonController { // La puerta de entrada al endpoint
             @ApiParam(value = "page to display", required = true, example = "1")
             @PathVariable(name = "page") Integer page,
             @ApiParam(value = "number of items per request", required = true, example = "1")
-            @PathVariable(name = "size") Integer size) {
+            @PathVariable(name = "size") Integer size){
 
         PersonResponseDTOFull personResponseFullDTOs = null;
         Map<String, Object> response = new HashMap<>();
 
+        try {
         personResponseFullDTOs = personService.getPersonAllForPage(page, size);
-
-
-        if (personResponseFullDTOs == null  ) {
-
-            response.put("Mensaje", "No existe informacion de Personas en el sistema");
+        } catch (ReadAccessException e) {
+            response.put("Mensaje", e.getMessage());
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(personResponseFullDTOs, HttpStatus.OK);
 
 
@@ -231,13 +267,25 @@ public class PersonController { // La puerta de entrada al endpoint
                     code = 400,
                     message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
     })
-    public ResponseEntity<PersonResponseDTO> putPersonById(
+    public ResponseEntity<?> putPersonById(
             @ApiParam(name = "id", required = true, value = "Person Id", example = "1")
             @PathVariable("id") Long id,
             @Valid //Es para validar que viene un dato en el body , si esta vacio da error
-            @RequestBody PersonDTO persona) { // id = ID de la persona a modificar / persona = datos a actualizar.
+            @RequestBody PersonDTO personDTO) { // id = ID de la persona a modificar / persona = datos a actualizar.
 
-        return new ResponseEntity<>(personService.updatePersonById(id,persona), HttpStatus.CREATED);
+        log.info("Entering update Person [request]: {}", personDTO);
+
+        Map<String, Object> response = new HashMap<>();
+        PersonResponseDTO personResponseDTO = null;
+        try {
+            personResponseDTO = personService.updatePersonById(id,personDTO);
+        } catch (ReadAccessException e) {
+            response.put("Mensaje", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+        log.info("Leaving addPerson [response]: {}", PersonResponseDTO.builder().build().getIdPerson());
+        return new ResponseEntity<>(personResponseDTO, HttpStatus.ACCEPTED);
+        //return new ResponseEntity<>(personService.updatePersonById(id,personDTO), HttpStatus.CREATED);
 
     }
 

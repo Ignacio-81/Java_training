@@ -4,7 +4,9 @@ import com.ayi.curso.rest.serv.app.dto.request.persons.PersonDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTO;
 import com.ayi.curso.rest.serv.app.dto.response.persons.PersonResponseDTOFull;
 import com.ayi.curso.rest.serv.app.entities.PersonEntity;
+import com.ayi.curso.rest.serv.app.exception.DataBaseException;
 import com.ayi.curso.rest.serv.app.exception.ReadAccessException;
+import com.ayi.curso.rest.serv.app.exception.WriteAccessException;
 import com.ayi.curso.rest.serv.app.mapper.IPersonMapper;
 import com.ayi.curso.rest.serv.app.repositories.IPersonRepository;
 import com.ayi.curso.rest.serv.app.service.IPersonService;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -43,7 +46,7 @@ public class PersonServiceImpl implements IPersonService {
 
         List<PersonEntity> personEntities = personRepository.findAll();
 
-        if (personEntities == null ||  personEntities.size() == 0 ){ // si tengo un error de lectura
+        if (personEntities.size() == 0 || personEntities.isEmpty()) { // si tengo un error de lectura
             throw new ReadAccessException("No existe registros para personas");
         }
 
@@ -104,8 +107,11 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public void removePersonById(Long idPerson) {
+    public void removePersonById(Long idPerson) throws ReadAccessException {
         //PersonResponseDTO personResponseDTO;
+        if (idPerson == null || idPerson == 0 || idPerson < 0) {
+            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+        }
 
         Optional<PersonEntity> entity = personRepository.findById(idPerson); // Ya tengo todos los métodos para buscar, deletear, etc
 
@@ -113,21 +119,30 @@ public class PersonServiceImpl implements IPersonService {
             throw new RuntimeException("Error no existe el id de persona buscado");
         }
 
-        personRepository.deleteById(idPerson);
-        //personResponseDTO = personMapper.entityToDto(entity.get());
-        //return personResponseDTO;
+        try {
+            personRepository.deleteById(entity.get().getIdPerson());
+            log.info("Completed Person data physical removal physical id={}", idPerson);
+        } catch (Throwable e) {
+            log.error("Can't remove List Person data physical removal data={}, cause={}", idPerson, e.getMessage());
+            throw new RuntimeException("Error de base de datos no controlado");
+        }
+
 
     }
 
     @Override
-    public PersonResponseDTO addPerson(PersonDTO persona) {
+    public PersonResponseDTO addPerson(PersonDTO persona) throws ReadAccessException, DataBaseException {
         PersonResponseDTO personResponseDTO;
 
+        if (ObjectUtils.isEmpty(persona)) {
+            throw new ReadAccessException("Error datos de la DTO estan vacios");
+        }
         Optional<PersonEntity> entity_check = personRepository.getPersonByDNI(persona.getNumberDocument()); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (entity_check.isPresent()) {
-            throw new RuntimeException("Error el DNI ya existe en la Base");
+            throw new WriteAccessException("Persona ya existe registrada en el sistema");
         }
+
 
         PersonEntity entity = new PersonEntity(
                 persona.getFirstName(),
@@ -136,15 +151,19 @@ public class PersonServiceImpl implements IPersonService {
                 persona.getNumberDocument(),
                 persona.getDateBorn()
         );
+        try{
+            personRepository.save(entity);
 
-        personRepository.save(entity);
-
-        personResponseDTO = personMapper.entityToDto(entity);
-        return personResponseDTO;
-
+            personResponseDTO = personMapper.entityToDto(entity);
+            return personResponseDTO;
+        } catch (RuntimeException th) {
+            log.error("Found an error when saving List Master Type code={}, cause={}", persona.getFirstName() + " " + persona.getLastName(), th.getStackTrace());
+            log.error("Found an error when saving List Master Type code={}, cause={}", persona.getFirstName() + " " + persona.getLastName(), th.getStackTrace());
+            throw new RuntimeException("" + th.getStackTrace());
+        }
     }
     @Override
-    public PersonResponseDTOFull getPersonAllForPage(Integer page, Integer size) {
+    public PersonResponseDTOFull getPersonAllForPage(Integer page, Integer size)throws ReadAccessException {
 
         PersonResponseDTOFull personResponseDTOFull;
 
@@ -160,7 +179,7 @@ public class PersonServiceImpl implements IPersonService {
             personResponseDTOFull.setTotalElements((int) personEntityPages.getTotalElements());
             return personResponseDTOFull;
         } else {
-            throw new RuntimeException("Error no identificado de runtime");
+            throw new ReadAccessException("No hay informacion en el sistema de personas registradas");
         }
 
     }
@@ -204,20 +223,33 @@ public class PersonServiceImpl implements IPersonService {
 
         return personMapper.entityToDto(entity);
     }*/
-    public PersonResponseDTO updatePersonById(Long idPerson, PersonDTO personaDTO) {
+    public PersonResponseDTO updatePersonById(Long idPerson, PersonDTO personaDTO) throws ReadAccessException {
+
+        if (idPerson == null || idPerson == 0L || idPerson < 0L) {
+            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+        }
 
         Optional<PersonEntity> entity = personRepository.findById(idPerson);
-        if (!entity.isPresent()) { //Verifico que la persona a modificar existe
-            throw new RuntimeException("Error no existe el id de persona buscado");
-        }
-        PersonEntity personRequest = entity.get();
-        LocalDate dateCreated = personRequest.getDateCreated();
-        personRequest = personMapper.dtoToEntity(personaDTO);
-        personRequest.setDateCreated(dateCreated);
-        personRequest.setDateModified(LocalDate.now());
-        personRequest.setIdPerson(idPerson);
-        personRepository.save(personRequest);
 
-        return personMapper.entityToDto(personRequest);
+
+        if (!entity.isPresent()) { //Verifico que la persona a modificar existe
+            throw new ReadAccessException("Error identificador de persona no existe: " + idPerson);
+        }
+
+        try {
+            PersonEntity personRequest = entity.get();
+            LocalDate dateCreated = personRequest.getDateCreated();
+            personRequest = personMapper.dtoToEntity(personaDTO);
+            personRequest.setDateCreated(dateCreated);
+            personRequest.setDateModified(LocalDate.now());
+            personRequest.setIdPerson(idPerson);
+            personRepository.save(personRequest);
+
+            return personMapper.entityToDto(personRequest);
+        } catch (Exception th) {
+            log.error("Found an error when saving List Master Type code={}, cause={}", personaDTO.getFirstName() + " " + personaDTO.getLastName(), th.getMessage());
+            throw new WriteAccessException("Error no identificado de runtime");
+
+        }
     }
 }
