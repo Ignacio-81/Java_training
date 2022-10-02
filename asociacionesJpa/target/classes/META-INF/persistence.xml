@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+    <persistence-unit name="cursoAyiJPA" transaction-type="RESOURCE_LOCAL"> <!--JTA para trabajar con Servidores de Aplicacion.-->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+<!--        <class>org.example.Entity.Cliente</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+        <properties>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/curso_ayi_jpaaa?serverTimezone=America/Santiago"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="28158598"/>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+
+<!--            Crear actualizar tablas de la DB automaticamente utilziando los nombres de la metadata de las entities. por ejemplo
+            utilizar los nombres de las variables cuando no especificamos el nombre de la columna de la tabla-->
+            <!-- Para crear las tablas a partir de la entidad automáticamente -->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <!-- validate, update, create, create-drop -->
+
+        </properties>
+    </persistence-unit>
+</persistence>
