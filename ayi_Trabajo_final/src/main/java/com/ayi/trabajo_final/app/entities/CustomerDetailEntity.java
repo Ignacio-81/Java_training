@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Setter
 @Builder
 @Entity
-@Table(name = "detalle_clientes")
-public class DetalleClienteEntity implements Serializable {
+@Table(name = "customer_details")
+public class CustomerDetailEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +20,16 @@ public class DetalleClienteEntity implements Serializable {
 
     private boolean prime;
 
-    @Column(name="puntos_acumulados")
-    private Long puntosAcumulados;
+    @Column(name="total_points")
+    private Long totalPoints;
 
     @OneToOne
     @JoinColumn(name="cliente_detalle_id")
-    private ClienteEntity cliente;
+    private CustomerEntity customer;
 
-    public DetalleClienteEntity(boolean prime, Long puntosAcumulados) {
+    public CustomerDetailEntity(boolean prime, Long totalPoints) {
         this.prime = prime;
-        this.puntosAcumulados = puntosAcumulados;
+        this.totalPoints = totalPoints;
     }
 
 }

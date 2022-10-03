@@ -14,23 +14,23 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name= "facturas")
-public class FacturaEntity implements Serializable {
+public class TicketEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "description")
+    private String description;
     @Column (name = "total")
     private Integer total;
 
-    public FacturaEntity(String descripcion, Integer total) {
-        this.descripcion = descripcion;
+    public TicketEntity(String description, Integer total) {
+        this.description = description;
         this.total = total;
     }
 
     @ManyToOne
-    @JoinColumn (name="id_cliente")
-    private ClienteEntity cliente;
+    @JoinColumn (name="id_customer")
+    private CustomerEntity customer;
 }
