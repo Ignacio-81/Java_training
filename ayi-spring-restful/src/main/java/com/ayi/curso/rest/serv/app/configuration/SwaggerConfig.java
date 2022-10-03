@@ -1,6 +1,6 @@
 package com.ayi.curso.rest.serv.app.configuration;
 /**
- * SE utiliza para manegar una api estandar
+ * SE utiliza para manejar una api estandar
  */
 
 import org.springframework.context.annotation.Bean;

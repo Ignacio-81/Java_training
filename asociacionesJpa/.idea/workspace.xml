@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="fix" />
+    <list default="true" id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="fix">
+      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/ClienteEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/DetalleClienteEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/DireccionEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/FacturaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi-spring-restful/src/main/java/com/ayi/curso/rest/serv/app/configuration/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi-spring-restful/src/main/java/com/ayi/curso/rest/serv/app/configuration/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi_Trabajo_final/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/ayi_trabajoFinal_app.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi_Trabajo_final/src/test/java/com/ayi/trabajo_final/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/test/java/com/ayi/trabajo_final/ayitrabajoFinalappTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +72,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "D:/Personal/AyiAcademy/Repo/Github/ayi-cursoJPA"
+    "last_opened_file_path": "D:/Personal/AyiAcademy/Repo/Github/asociacionesJpa"
   }
 }]]></component>
   <component name="RecentsManager">
