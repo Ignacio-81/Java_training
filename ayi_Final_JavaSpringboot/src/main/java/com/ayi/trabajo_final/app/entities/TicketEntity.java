@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name= "facturas")
+@Table(name= "tickets")
 public class TicketEntity implements Serializable {
 
     @Id
@@ -23,9 +23,9 @@ public class TicketEntity implements Serializable {
     @Column(name = "description")
     private String description;
     @Column (name = "total")
-    private Integer total;
+    private Double total;
 
-    public TicketEntity(String description, Integer total) {
+    public TicketEntity(String description, Double total) {
         this.description = description;
         this.total = total;
     }

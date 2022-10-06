@@ -27,13 +27,13 @@ public class CustomerMapperImpl extends Exception implements ICustomerMapper {
         return personEntity;
     }
 
-    @Override
+/*    @Override
     public CustomerEntity toEntityByRequest(CustomerDTO dto) {
 
         CustomerEntity personEntity = new CustomerEntity();
         modelMapper.map(dto, personEntity);
         return personEntity;
-    }
+    }*/
 
 
 }

@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages={"com.ayi.trabajo_final.app.configuration" +
-        "com.ayi.trabajo_final..app.service" +
+        "com.ayi.trabajo_final..app.services" +
         "com.ayi.trabajo_final.app.mapper" +
-        "com.ayi.trabajo_final.app.repository"})
+        "com.ayi.trabajo_final.app.repositories"})
 public class CommonsConfiguration {
 
     @Bean

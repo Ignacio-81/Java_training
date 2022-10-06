@@ -24,7 +24,7 @@ public class CustomerDetailEntity implements Serializable {
     private Long totalPoints;
 
     @OneToOne
-    @JoinColumn(name="cliente_detalle_id")
+    @JoinColumn(name="customer_detail_id")
     private CustomerEntity customer;
 
     public CustomerDetailEntity(boolean prime, Long totalPoints) {

@@ -38,4 +38,8 @@ public class AddressEntity implements Serializable {
     @Column (name = "country")
     private String country;
 
+    @ManyToOne
+    @JoinColumn (name="id_customer")
+    private CustomerEntity customer;
+
 }

@@ -1,9 +1,11 @@
 package com.ayi.trabajo_final.app.entities;
 
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -13,7 +15,7 @@ import java.util.List;
 @ToString
 @Builder
 @Entity
-@Table(name = "clientes")//, indexes = @Index(name = "uniqueIndexPersona", columnList = "nombre, apellido", unique = true))
+@Table(name = "customers")//, indexes = @Index(name = "uniqueIndexPersona", columnList = "nombre, apellido", unique = true))
 
 
 public class CustomerEntity implements Serializable {
@@ -23,35 +25,44 @@ public class CustomerEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 50)
-    private String name;
+    @Column(name = "firstName", nullable = false, length = 50)
+    private String firstName;
 
     @Column(name = "lastName", nullable = false, length = 50)
     private String lastName;
 
-    @Column(name = "dni", nullable = false)
-    private Integer dni;
+    @Column(name = "docNumber", nullable = false)
+    private Integer documentNumber;
 
-/*    @Column(name = "address", nullable = false, length = 50)
-    private String address;*/
 
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable (name = "tbl_clientes_direcciones", joinColumns = @JoinColumn(name="id_customer"),
+    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
+/*    @JoinTable (name = "tbl_clientes_direcciones", joinColumns = @JoinColumn(name="id_customer"),
             inverseJoinColumns = @JoinColumn(name = "id_address")
-            , uniqueConstraints = @UniqueConstraint(columnNames={"id_address"}))
-
+            , uniqueConstraints = @UniqueConstraint(columnNames={"id_address"}))*/
     private List<AddressEntity> address;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer") //
     private List<TicketEntity> tickets;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
     private CustomerDetailEntity details;
 
-    public CustomerEntity(String name, String lastName, Integer dni, String address) {
-        this.name = name;
+    @Column(name = "date_created", nullable = false)
+    private LocalDate dateCreated;
+
+    @Column(name = "date_modified")
+    private LocalDate dateModified;
+    public CustomerEntity(String name, String lastName, Integer dni, LocalDate created, LocalDate modified) {
+        this.firstName = name;
         this.lastName = lastName;
-        this.dni = dni;
+        this.documentNumber = dni;
+        this.dateCreated = created;
+        this.dateModified = modified;
+    }
+    public CustomerEntity(String name, String lastName, Integer dni) {
+        this.firstName = name;
+        this.lastName = lastName;
+        this.documentNumber = dni;
         //this.address = address;
     }
 
