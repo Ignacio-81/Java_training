@@ -1,10 +1,7 @@
 package com.ayi.trabajo_final.app.entities;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "address")
 public class AddressEntity implements Serializable {
@@ -21,10 +19,10 @@ public class AddressEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "street")
-    private String street;
-    @Column (name = "number")
-    private Integer number;
+    @Column(name = "streetName")
+    private String streetName;
+    @Column (name = "streetNumber")
+    private Integer streetNumber;
     @Column(name = "floor")
     private String floor;
     @Column (name = "floorNumber")

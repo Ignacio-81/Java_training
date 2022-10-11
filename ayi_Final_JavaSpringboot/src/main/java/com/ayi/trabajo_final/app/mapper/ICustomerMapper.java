@@ -10,6 +10,8 @@ public interface ICustomerMapper {
 
     CustomerEntity dtoToEntity(CustomerDTO dto);
 
-/*    CustomerEntity toEntityByRequest(CustomerDTO dto);*/
+    CustomerEntity responseDTOToEntity(CustomerResponseDTO dto);
+
+    /*    CustomerEntity toEntityByRequest(CustomerDTO dto);*/
 
 }

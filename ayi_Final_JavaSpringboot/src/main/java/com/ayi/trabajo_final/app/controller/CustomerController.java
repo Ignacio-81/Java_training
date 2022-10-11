@@ -1,9 +1,14 @@
 package com.ayi.trabajo_final.app.controller;
 
 import com.ayi.trabajo_final.app.dto.requests.CustomerDTO;
+import com.ayi.trabajo_final.app.dto.requests.CustomerDetailDTO;
+import com.ayi.trabajo_final.app.dto.responses.AddressResponseDTO;
+import com.ayi.trabajo_final.app.dto.responses.CustomerDetailResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
+import com.ayi.trabajo_final.app.services.IAddressService;
+import com.ayi.trabajo_final.app.services.ICustomerDetailService;
 import com.ayi.trabajo_final.app.services.ICustomerService;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +34,10 @@ public class CustomerController {
 
     @Autowired
     private ICustomerService customerService; // Acá traigo la interfaz del servicio
+    @Autowired
+    private ICustomerDetailService iCustomerDetailService;
+    @Autowired
+    private IAddressService iAddressService;
 
     @PostMapping(
             value = "/addCustomer"
@@ -54,8 +63,14 @@ public class CustomerController {
 
         Map<String, Object> response = new HashMap<>();
         CustomerResponseDTO customerResponseDTO = null;
+        AddressResponseDTO addressResponseDTO = null;
+        CustomerDetailResponseDTO customerDetailResponseDTO = null;
         try {
             customerResponseDTO = customerService.addCustomer(customerDTO);
+            customerDetailResponseDTO = iCustomerDetailService.addCustomerDetail(customerDTO.getCustomerDetailDTO(), customerResponseDTO);
+            addressResponseDTO = iAddressService.addAddress(customerDTO.getAddressDTO(), customerResponseDTO);
+            customerResponseDTO.setAddressResponseDTO(addressResponseDTO);
+            customerResponseDTO.setCustomerDetailResponseDTO(customerDetailResponseDTO);
         } catch (ReadAccessException e) {
             response.put("Mensaje", e.getMessage());
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);

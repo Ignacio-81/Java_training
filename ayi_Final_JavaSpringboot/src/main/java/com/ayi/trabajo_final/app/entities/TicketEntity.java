@@ -1,9 +1,6 @@
 package com.ayi.trabajo_final.app.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,13 +9,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
+//@ToString
+@Builder
 @Entity
 @Table(name= "tickets")
 public class TicketEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "description")
     private String description;
@@ -33,4 +32,5 @@ public class TicketEntity implements Serializable {
     @ManyToOne
     @JoinColumn (name="id_customer")
     private CustomerEntity customer;
+
 }

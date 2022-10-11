@@ -34,12 +34,16 @@ public class CustomerEntity implements Serializable {
     @Column(name = "docNumber", nullable = false)
     private Integer documentNumber;
 
+/*
 
     @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
+*/
 /*    @JoinTable (name = "tbl_clientes_direcciones", joinColumns = @JoinColumn(name="id_customer"),
             inverseJoinColumns = @JoinColumn(name = "id_address")
-            , uniqueConstraints = @UniqueConstraint(columnNames={"id_address"}))*/
+            , uniqueConstraints = @UniqueConstraint(columnNames={"id_address"}))*//*
+
     private List<AddressEntity> address;
+*/
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer") //
     private List<TicketEntity> tickets;

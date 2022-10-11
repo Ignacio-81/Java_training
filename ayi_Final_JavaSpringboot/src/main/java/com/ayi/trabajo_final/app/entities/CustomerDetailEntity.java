@@ -18,8 +18,8 @@ public class CustomerDetailEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean prime;
-
+    @Column(name="isVip")
+    private Boolean vip;
     @Column(name="total_points")
     private Long totalPoints;
 
@@ -27,8 +27,8 @@ public class CustomerDetailEntity implements Serializable {
     @JoinColumn(name="customer_detail_id")
     private CustomerEntity customer;
 
-    public CustomerDetailEntity(boolean prime, Long totalPoints) {
-        this.prime = prime;
+    public CustomerDetailEntity(Boolean vip, Long totalPoints) {
+        this.vip = vip;
         this.totalPoints = totalPoints;
     }
 

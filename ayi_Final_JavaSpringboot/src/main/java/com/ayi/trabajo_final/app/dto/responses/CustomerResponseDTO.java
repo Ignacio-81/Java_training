@@ -1,5 +1,7 @@
 package com.ayi.trabajo_final.app.dto.responses;
 
+import com.ayi.trabajo_final.app.dto.requests.AddressDTO;
+import com.ayi.trabajo_final.app.dto.requests.CustomerDetailDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -42,4 +44,12 @@ public class CustomerResponseDTO implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateModified;
 
+    public CustomerDetailResponseDTO customerDetailResponseDTO;
+
+    public AddressResponseDTO addressResponseDTO;
+    public CustomerResponseDTO(String firstName, String lastName, Integer documentNumber){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.documentNumber = documentNumber;
+    }
 }

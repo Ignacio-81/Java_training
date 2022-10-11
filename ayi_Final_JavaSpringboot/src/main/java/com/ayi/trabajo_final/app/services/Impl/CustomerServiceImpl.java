@@ -2,12 +2,17 @@ package com.ayi.trabajo_final.app.services.Impl;
 
 import com.ayi.trabajo_final.app.dto.requests.CustomerDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
+import com.ayi.trabajo_final.app.entities.CustomerDetailEntity;
 import com.ayi.trabajo_final.app.entities.CustomerEntity;
+import com.ayi.trabajo_final.app.entities.TicketEntity;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
 import com.ayi.trabajo_final.app.exceptions.WriteAccessException;
+import com.ayi.trabajo_final.app.mapper.IAddressMapper;
 import com.ayi.trabajo_final.app.mapper.ICustomerMapper;
+import com.ayi.trabajo_final.app.repositories.ICustomerDetailRepository;
 import com.ayi.trabajo_final.app.repositories.ICustomerRepository;
+import com.ayi.trabajo_final.app.services.IAddressService;
 import com.ayi.trabajo_final.app.services.ICustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +37,10 @@ public class CustomerServiceImpl implements ICustomerService {
     @Autowired
     private ICustomerMapper customerMapper; // Acá uso los mapper (me transforma una entidad a otra)
 
+    @Autowired
+    private ICustomerDetailRepository detailRepository;
+
+
     @Override
     public CustomerResponseDTO addCustomer(CustomerDTO customerDTO) throws ReadAccessException, DataBaseException {
         CustomerResponseDTO customerResponseDTO;
@@ -46,17 +55,17 @@ public class CustomerServiceImpl implements ICustomerService {
         }
 
 
-        CustomerEntity entity = new CustomerEntity(
-                customerDTO.getFirstName(),
-                customerDTO.getLastName(),
-                customerDTO.getDocumentNumber(),
-                LocalDate.now(),
-                LocalDate.now()
-        );
+        CustomerEntity entity = CustomerEntity.builder()
+            .firstName(customerDTO.getFirstName())
+            .lastName(customerDTO.getLastName())
+            .documentNumber(customerDTO.getDocumentNumber())
+            .dateCreated(LocalDate.now())
+            .dateModified(LocalDate.now())
+
+            .build();
 
         try{
             customerRepository.save(entity);
-
             customerResponseDTO = customerMapper.entityToDto(entity);
             return customerResponseDTO;
         } catch (RuntimeException th) {
@@ -65,7 +74,6 @@ public class CustomerServiceImpl implements ICustomerService {
             throw new RuntimeException("" + th.getStackTrace());
         }
     }
-
     @Override
     public CustomerResponseDTO findCustomerById(Long idCustomer) throws ReadAccessException {
         CustomerResponseDTO customerResponseDTO;
@@ -136,6 +144,34 @@ public class CustomerServiceImpl implements ICustomerService {
             log.error("Found an error when saving List Master Type code={}, cause={}", customerDTO.getFirstName() + " " + customerDTO.getLastName(), th.getMessage());
             throw new WriteAccessException("Error no identificado de runtime");
 
+        }
+    }
+    @Override
+    public CustomerResponseDTO addCustomerTicket(CustomerDTO customerDTO) throws ReadAccessException, DataBaseException {
+        CustomerResponseDTO customerResponseDTO;
+
+        if (ObjectUtils.isEmpty(customerDTO)) {
+            throw new ReadAccessException("Error datos de la DTO estan vacios");
+        }
+
+
+        CustomerEntity entity = new CustomerEntity(
+                customerDTO.getFirstName(),
+                customerDTO.getLastName(),
+                customerDTO.getDocumentNumber(),
+                LocalDate.now(),
+                LocalDate.now()
+        );
+
+        try{
+            customerRepository.save(entity);
+
+            customerResponseDTO = customerMapper.entityToDto(entity);
+            return customerResponseDTO;
+        } catch (RuntimeException th) {
+            log.error("Found an error when saving List Master Type code={}, cause={}", customerDTO.getFirstName() + " " + customerDTO.getLastName(), th.getStackTrace());
+            log.error("Found an error when saving List Master Type code={}, cause={}", customerDTO.getFirstName() + " " + customerDTO.getLastName(), th.getStackTrace());
+            throw new RuntimeException("" + th.getStackTrace());
         }
     }
 

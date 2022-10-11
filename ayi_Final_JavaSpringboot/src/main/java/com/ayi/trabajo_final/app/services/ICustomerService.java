@@ -17,4 +17,6 @@ public interface ICustomerService {
     void removeCustomerById(Long idCustomer) throws ReadAccessException;
 
     CustomerResponseDTO updateCustomerById(Long idCustomer, CustomerDTO customerDTO) throws ReadAccessException;
+
+    CustomerResponseDTO addCustomerTicket(CustomerDTO customerDTO) throws ReadAccessException, DataBaseException;
 }

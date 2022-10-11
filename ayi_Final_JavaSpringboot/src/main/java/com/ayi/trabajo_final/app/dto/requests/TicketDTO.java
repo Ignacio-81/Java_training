@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-@Data
+import java.io.Serializable;
+
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,7 +17,7 @@ import javax.validation.constraints.NotNull;
         value = "TicketDTO",
         description = "Represents the data needed to create Tickets"
 )
-public class TicketDTO {
+public class TicketDTO implements Serializable {
     @ApiModelProperty(position = 1, notes = "Non negative value, The first name is required.")
     @NotNull
     //Filtramos antes que el valor no sea nulo para no llegar a la base y que la misma responda que no es posible.
@@ -24,9 +26,7 @@ public class TicketDTO {
     @ApiModelProperty(position = 2, notes = "Non negative value, The last name is required.")
     private Double total;
 
-    @ApiModelProperty(position = 3, notes = "Non negative value, The last name is required.")
     public CustomerDTO customer;
-
 
 
 }

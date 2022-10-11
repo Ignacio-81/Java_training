@@ -1,5 +1,6 @@
 package com.ayi.trabajo_final.app.dto.requests;
 
+import com.ayi.trabajo_final.app.entities.CustomerDetailEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -35,6 +36,12 @@ public class CustomerDTO implements Serializable {
     @ApiModelProperty(position = 3, notes = "Non negative value, The number document is required.")
     private Integer documentNumber;
 
+    @ApiModelProperty(position = 4, notes = "Non negative value, The number document is required.")
+    public CustomerDetailDTO customerDetailDTO;
+
+    @ApiModelProperty(position = 5, notes = "Non negative value, The number document is required.")
+    public AddressDTO addressDTO;
+
 /*    @ApiModelProperty(position = 4, notes = "Date Created Customer")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateCreated;
@@ -42,5 +49,11 @@ public class CustomerDTO implements Serializable {
     @ApiModelProperty(position = 5, notes = "Date Modified Customer")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateModified;*/
+
+    public CustomerDTO(String firstName, String lastName, Integer documentNumber){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.documentNumber = documentNumber;
+    }
 
 }
