@@ -2,9 +2,7 @@ package com.ayi.trabajo_final.app.controller;
 
 import com.ayi.trabajo_final.app.dto.requests.CustomerDTO;
 import com.ayi.trabajo_final.app.dto.requests.CustomerDetailDTO;
-import com.ayi.trabajo_final.app.dto.responses.AddressResponseDTO;
-import com.ayi.trabajo_final.app.dto.responses.CustomerDetailResponseDTO;
-import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
+import com.ayi.trabajo_final.app.dto.responses.*;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
 import com.ayi.trabajo_final.app.services.IAddressService;
@@ -17,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -87,6 +83,39 @@ public class CustomerController {
 
 
     }
+    @GetMapping(
+            value = "/getAllTicketsByCustomerId/{id}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    @ApiOperation(
+            value = "Retrieves data associated to List Master by Id",
+            httpMethod = "GET",
+            response = CustomerDetailResponseDTO.class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    code = 200,
+                    message = "Body content with Ticket and customer Information by Id"
+            ),
+            @ApiResponse(
+                    code = 400,
+                    message = "Describes errors on invalid payload received, e.g: missing fields, invalid data formats, etc.")
+    })
+    public ResponseEntity<?> getTicketsByCustomerId(
+            @ApiParam(name = "id", required = true, value = "Customer Id", example = "1")
+            @PathVariable("id") Long id) { // este "id" es lo que está entre llaves en el getmapping {id}
 
+        Map<String, Object> response = new HashMap<>();
+        List<CustomerTicketsResponseDTO> customerTicketsResponseDTO = null;
+        try{
+            customerTicketsResponseDTO = customerService.findAllTicketByCustomerById(id);
+        } catch (ReadAccessException e) {
+            response.put("Mensaje", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+        log.info("Leaving getTicketsByCustomerId [response]: {}", customerTicketsResponseDTO.toString());
+        return new ResponseEntity<>(customerTicketsResponseDTO, HttpStatus.ACCEPTED);
+
+    }
 }
 

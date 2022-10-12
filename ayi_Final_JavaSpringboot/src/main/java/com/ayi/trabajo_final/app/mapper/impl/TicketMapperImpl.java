@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class TicketMapperImpl extends Exception implements ITicketMapper {
@@ -27,4 +30,5 @@ public class TicketMapperImpl extends Exception implements ITicketMapper {
         modelMapper.map(dto, ticketEntity);
         return ticketEntity;
     }
+
 }

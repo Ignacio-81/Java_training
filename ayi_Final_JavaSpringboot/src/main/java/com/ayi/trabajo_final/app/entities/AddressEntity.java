@@ -1,5 +1,20 @@
 package com.ayi.trabajo_final.app.entities;
+/**
+ * Address Entity
+ * @Table (name = "Address")
+ * Properties:
+ * @id Long;
+ * @streetName String;
+ * @streetNumber Integer;
+ * @floor Integer;
+ * @apartmentLetter String;
+ * @postalCode String;
+ * @state String;
+ * @city String;
+ * @country String;
+ *
 
+ */
 
 import lombok.*;
 
@@ -24,9 +39,9 @@ public class AddressEntity implements Serializable {
     @Column (name = "streetNumber")
     private Integer streetNumber;
     @Column(name = "floor")
-    private String floor;
-    @Column (name = "floorNumber")
-    private Integer floorNumber;
+    private Integer floor;
+    @Column (name = "apartmentLetter")
+    private String apartmentLetter;
     @Column(name = "postalCode")
     private String postalCode;
     @Column (name = "state")

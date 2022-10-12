@@ -2,17 +2,14 @@ package com.ayi.trabajo_final.app.services.Impl;
 
 import com.ayi.trabajo_final.app.dto.requests.CustomerDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
-import com.ayi.trabajo_final.app.entities.CustomerDetailEntity;
+import com.ayi.trabajo_final.app.dto.responses.CustomerTicketsResponseDTO;
 import com.ayi.trabajo_final.app.entities.CustomerEntity;
 import com.ayi.trabajo_final.app.entities.TicketEntity;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
 import com.ayi.trabajo_final.app.exceptions.WriteAccessException;
-import com.ayi.trabajo_final.app.mapper.IAddressMapper;
 import com.ayi.trabajo_final.app.mapper.ICustomerMapper;
-import com.ayi.trabajo_final.app.repositories.ICustomerDetailRepository;
 import com.ayi.trabajo_final.app.repositories.ICustomerRepository;
-import com.ayi.trabajo_final.app.services.IAddressService;
 import com.ayi.trabajo_final.app.services.ICustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +19,10 @@ import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @AllArgsConstructor
 @Service //Indica que es un servicio y puede ser inyectado
@@ -36,10 +36,6 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
     private ICustomerMapper customerMapper; // Acá uso los mapper (me transforma una entidad a otra)
-
-    @Autowired
-    private ICustomerDetailRepository detailRepository;
-
 
     @Override
     public CustomerResponseDTO addCustomer(CustomerDTO customerDTO) throws ReadAccessException, DataBaseException {
@@ -147,32 +143,29 @@ public class CustomerServiceImpl implements ICustomerService {
         }
     }
     @Override
-    public CustomerResponseDTO addCustomerTicket(CustomerDTO customerDTO) throws ReadAccessException, DataBaseException {
-        CustomerResponseDTO customerResponseDTO;
+    public List<CustomerTicketsResponseDTO> findAllTicketByCustomerById(Long idCustomer) throws ReadAccessException {
+        List<CustomerTicketsResponseDTO> ticketEntityList;
 
-        if (ObjectUtils.isEmpty(customerDTO)) {
-            throw new ReadAccessException("Error datos de la DTO estan vacios");
+        if (idCustomer == null || idCustomer <= 0) {
+            throw new ReadAccessException("ERROR, EL ID ES NULO O MENOR A 0.");
         }
 
+        Optional<CustomerEntity> entity = customerRepository.findById(idCustomer); // Ya tengo todos los métodos para buscar, deletear, etc
 
-        CustomerEntity entity = new CustomerEntity(
-                customerDTO.getFirstName(),
-                customerDTO.getLastName(),
-                customerDTO.getDocumentNumber(),
-                LocalDate.now(),
-                LocalDate.now()
-        );
-
-        try{
-            customerRepository.save(entity);
-
-            customerResponseDTO = customerMapper.entityToDto(entity);
-            return customerResponseDTO;
-        } catch (RuntimeException th) {
-            log.error("Found an error when saving List Master Type code={}, cause={}", customerDTO.getFirstName() + " " + customerDTO.getLastName(), th.getStackTrace());
-            log.error("Found an error when saving List Master Type code={}, cause={}", customerDTO.getFirstName() + " " + customerDTO.getLastName(), th.getStackTrace());
-            throw new RuntimeException("" + th.getStackTrace());
+        if (!entity.isPresent()) {
+            throw new RuntimeException("Error no existe el id de persona buscado");
         }
+        ticketEntityList = entity.get().getTickets().stream()
+                .map(lt -> new CustomerTicketsResponseDTO(
+                        lt.getId(),
+                        lt.getDescription(),
+                        lt.getTotal()
+                )) // Tdo esto es lo que estoy enviando al constructor de PersonResponseDTO
+                .collect(Collectors.toList()); // A través de stream, mapeo los campos de personEntities a personResponseDTOs
+;
+
+        return ticketEntityList;
     }
+
 
 }

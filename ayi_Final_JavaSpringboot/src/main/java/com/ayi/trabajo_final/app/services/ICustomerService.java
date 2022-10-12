@@ -2,6 +2,7 @@ package com.ayi.trabajo_final.app.services;
 
 import com.ayi.trabajo_final.app.dto.requests.CustomerDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
+import com.ayi.trabajo_final.app.dto.responses.CustomerTicketsResponseDTO;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
 
@@ -18,5 +19,6 @@ public interface ICustomerService {
 
     CustomerResponseDTO updateCustomerById(Long idCustomer, CustomerDTO customerDTO) throws ReadAccessException;
 
-    CustomerResponseDTO addCustomerTicket(CustomerDTO customerDTO) throws ReadAccessException, DataBaseException;
+    List<CustomerTicketsResponseDTO> findAllTicketByCustomerById(Long idCustomer) throws ReadAccessException;
+
 }

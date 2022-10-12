@@ -3,7 +3,6 @@ package com.ayi.trabajo_final.app.services.Impl;
 import com.ayi.trabajo_final.app.dto.requests.TicketDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.TicketResponseDTO;
-import com.ayi.trabajo_final.app.entities.CustomerEntity;
 import com.ayi.trabajo_final.app.entities.TicketEntity;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
@@ -21,7 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Service //Indica que es un servicio y puede ser inyectado
 @Slf4j
@@ -41,7 +43,7 @@ public class TicketServiceImpl implements ITicketService {
     private ICustomerMapper customerMapper;
 
     @Override
-    public TicketResponseDTO addTicket(TicketDTO ticketDTO) throws ReadAccessException, DataBaseException {
+    public TicketResponseDTO addTicket(TicketDTO ticketDTO, CustomerResponseDTO customerRDTO) throws ReadAccessException, DataBaseException {
         TicketResponseDTO ticketResponseDTO;
 
         if (ObjectUtils.isEmpty(ticketDTO)) {
@@ -53,36 +55,11 @@ public class TicketServiceImpl implements ITicketService {
                 ticketDTO.getDescription(),
                 ticketDTO.getTotal()
         );
-        CustomerResponseDTO c_entityDTO = new CustomerResponseDTO();
-        //Check if customer exists by Document Number:
-        Optional<CustomerEntity> entity_check = customerRepository.getCustomerByDNI(ticketDTO.customer.getDocumentNumber());
-
-        if (entity_check.isPresent()) {
-
-            t_entity.setCustomer(entity_check.get());
-            c_entityDTO = customerMapper.entityToDto(entity_check.get());
-/*        CustomerEntity c_entity = new CustomerEntity(
-                ticketDTO.getCustomer().getFirstName(),
-                ticketDTO.getCustomer().getLastName(),
-                ticketDTO.getCustomer().getDocumentNumber(),
-                LocalDate.now(),
-                LocalDate.now()
-        );
-
-        List<TicketEntity> l_t_entity = new ArrayList<>();
-        l_t_entity.add(t_entity);
-        c_entity.setTickets(l_t_entity);*/
-
-        }else {
-            c_entityDTO = customerService.addCustomerTicket(ticketDTO.getCustomer());
-            t_entity.setCustomer(customerMapper.responseDTOToEntity(c_entityDTO));
-        }
-
+        t_entity.setCustomer(customerMapper.responseDTOToEntity(customerRDTO));
         try{
 
             ticketsRespository.save(t_entity);
             ticketResponseDTO = ticketMapper.entityToDto(t_entity);
-            ticketResponseDTO.setCustomer(c_entityDTO);
             return ticketResponseDTO;
         } catch (RuntimeException th) {
             log.error("Found an error when saving List Master Type code={}, cause={}", ticketDTO.getDescription(), th.getStackTrace());
@@ -142,7 +119,6 @@ public class TicketServiceImpl implements ITicketService {
 
         Optional<TicketEntity> entity = ticketsRespository.findById(idTicket);
 
-
         if (!entity.isPresent()) { //Verifico que la persona a modificar existe
             throw new ReadAccessException("Error identificador de Ticket no existe: " + idTicket);
         }
@@ -158,5 +134,6 @@ public class TicketServiceImpl implements ITicketService {
 
         }
     }
+
 
 }

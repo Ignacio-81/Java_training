@@ -25,18 +25,33 @@ public class AddressResponseDTO implements Serializable {
     private String streetName;
 
     @ApiModelProperty(position = 2, notes = "Non negative value, The last name is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private Integer streetNumber;
 
     @ApiModelProperty(position = 3, notes = "Non negative value, The last name is required.")
-    private String floor;
+    private Integer floor;
     @ApiModelProperty(position = 4, notes = "Non negative value, The last name is required.")
-    private Integer floorNumber;
+    private String apartmentLetter;
     @ApiModelProperty(position = 5, notes = "Non negative value, The last name is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String postalCode;
     @ApiModelProperty(position = 6, notes = "Non negative value, The last name is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String state;
     @ApiModelProperty(position = 7, notes = "Non negative value, The last name is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String city;
     @ApiModelProperty(position = 8, notes = "Non negative value, The last name is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String country;
 }

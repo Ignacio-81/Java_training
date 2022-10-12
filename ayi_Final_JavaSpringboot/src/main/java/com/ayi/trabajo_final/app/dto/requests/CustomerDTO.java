@@ -31,9 +31,15 @@ public class CustomerDTO implements Serializable {
     private String firstName;
 
     @ApiModelProperty(position = 2, notes = "Non negative value, The last name is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String lastName;
 
     @ApiModelProperty(position = 3, notes = "Non negative value, The number document is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private Integer documentNumber;
 
     @ApiModelProperty(position = 4, notes = "Non negative value, The number document is required.")

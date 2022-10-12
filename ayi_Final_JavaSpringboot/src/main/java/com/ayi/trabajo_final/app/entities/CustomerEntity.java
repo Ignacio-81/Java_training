@@ -1,11 +1,24 @@
 package com.ayi.trabajo_final.app.entities;
+/**
+ * Customer Entity
+ * @Table (name = "customers")
+ * Properties:
+ * @id Long;
+ * @firstName String;
+ * @lastName Integer;
+ * @documentNumbre Integer;
+ * @dateCreated String;
+ * @dateModified String;
+ *
 
+ */
 import lombok.*;
-import net.bytebuddy.asm.Advice;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -34,19 +47,9 @@ public class CustomerEntity implements Serializable {
     @Column(name = "docNumber", nullable = false)
     private Integer documentNumber;
 
-/*
-
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
-*/
-/*    @JoinTable (name = "tbl_clientes_direcciones", joinColumns = @JoinColumn(name="id_customer"),
-            inverseJoinColumns = @JoinColumn(name = "id_address")
-            , uniqueConstraints = @UniqueConstraint(columnNames={"id_address"}))*//*
-
-    private List<AddressEntity> address;
-*/
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer") //
-    private List<TicketEntity> tickets;
+    private List<TicketEntity> tickets = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
     private CustomerDetailEntity details;
@@ -69,10 +72,5 @@ public class CustomerEntity implements Serializable {
         this.documentNumber = dni;
         //this.address = address;
     }
-
-/*    public ClienteEntity(String nombre, String apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-    }*/
 
 }

@@ -16,12 +16,12 @@ spring:
         show_sql: true
         format_sql: true
     hibernate:
-      ddl-auto: create-drop #validate | update | create | create-drop
+      ddl-auto: update #validate | update | create | create-drop
 
-#sql:
-#  init:
-#    mode: always
-#    data-locations: classpath:data.sql
+sql:
+  init:
+    mode: always
+    data-locations: classpath:data.sql
 
 # Swagger settings.
 springfox:

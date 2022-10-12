@@ -1,5 +1,14 @@
 package com.ayi.trabajo_final.app.entities;
+/**
+ * Customer Detail  Entity
+ * @Table (name = "customers_details")
+ * Properties:
+ * @id Long;
+ * @vip Boolean;
+ * @totalPoints Long;
+ *
 
+ */
 import lombok.*;
 
 import javax.persistence.*;

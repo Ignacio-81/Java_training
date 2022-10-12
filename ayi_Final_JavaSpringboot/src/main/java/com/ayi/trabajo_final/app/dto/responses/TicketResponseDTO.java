@@ -28,7 +28,7 @@ public class TicketResponseDTO implements Serializable {
     private String description;
 
     @ApiModelProperty(position = 2, notes = "Non negative value, The last name is required.")
-    private String total;
+    private Double total;
 
     public CustomerResponseDTO customer;
 }

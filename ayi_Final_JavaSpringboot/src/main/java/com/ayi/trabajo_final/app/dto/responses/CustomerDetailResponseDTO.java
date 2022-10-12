@@ -31,6 +31,9 @@ public class CustomerDetailResponseDTO implements Serializable {
     private Boolean vip;
 
     @ApiModelProperty(position = 2, notes = "Non negative value, The last name is required.")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private Long totalPoints;
 
 }

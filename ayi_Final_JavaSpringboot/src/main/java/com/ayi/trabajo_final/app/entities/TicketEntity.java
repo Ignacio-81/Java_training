@@ -1,5 +1,14 @@
 package com.ayi.trabajo_final.app.entities;
+/**
+ * Ticket Entity
+ * @Table (name = "tickets")
+ * Properties:
+ * @id Long;
+ * @description String;
+ * @total Double;
+*
 
+ */
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +18,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-//@ToString
 @Builder
 @Entity
 @Table(name= "tickets")
