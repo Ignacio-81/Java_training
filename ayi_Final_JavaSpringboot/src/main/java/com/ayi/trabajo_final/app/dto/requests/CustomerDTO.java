@@ -48,13 +48,6 @@ public class CustomerDTO implements Serializable {
     @ApiModelProperty(position = 5, notes = "Non negative value, The number document is required.")
     public AddressDTO addressDTO;
 
-/*    @ApiModelProperty(position = 4, notes = "Date Created Customer")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate dateCreated;
-
-    @ApiModelProperty(position = 5, notes = "Date Modified Customer")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate dateModified;*/
 
     public CustomerDTO(String firstName, String lastName, Integer documentNumber){
         this.firstName = firstName;

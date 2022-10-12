@@ -5,24 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48164287-d986-4ef0-b8ca-1cfd4833c17e" name="Changes" comment="fix">
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/configuration/CommonsConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/configuration/SwaggerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/dto/requests/CustomerDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/dto/responses/CustomerResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/AddressEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/exceptions/DataBaseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/exceptions/ReadAccessException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/exceptions/WriteAccessException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/mapper/ICustomerMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/mapper/impl/CustomerMapperImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/repositories/ICustomerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/services/ICustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/services/Impl/CustomerServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/ClienteEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/CustomerEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/DetalleClienteEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/CustomerDetailEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/DireccionEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/FacturaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Trabajo_final/src/main/java/com/ayi/trabajo_final/app/entities/TicketEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/AddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/CustomerDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/CustomerDetailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/TicketServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ayi_Final_JavaSpringboot/src/main/java/com/ayi/trabajo_final/app/services/Impl/TicketServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

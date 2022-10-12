@@ -6,6 +6,7 @@ import com.ayi.trabajo_final.app.dto.responses.CustomerTicketsResponseDTO;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ICustomerService {

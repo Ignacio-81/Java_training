@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class CustomerController {
             value = "/addCustomer"
     )
     @ApiOperation(
-            value = "POST a new value on the Database",
+            value = "POST a new Customer on the Database",
             httpMethod = "POST",
             response = CustomerResponseDTO.class
     )
@@ -68,14 +69,13 @@ public class CustomerController {
             customerResponseDTO.setAddressResponseDTO(addressResponseDTO);
             customerResponseDTO.setCustomerDetailResponseDTO(customerDetailResponseDTO);
         } catch (ReadAccessException e) {
-            response.put("Mensaje", e.getMessage());
+            response.put("Message:", e.getMessage());
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         } catch (RuntimeException e) {
-            //response.put("Mensaje", e.getMessage());
-            response.put("Mensaje", "Error del sistema, ponganse en contanto con el administrador");
+            response.put("Message:", "System Error , please contact Administrator");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (DataBaseException e) {
-            response.put("Mensaje", "Prueba de error database");
+            response.put("Message:", "DataBase Error , please contact Administrator");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
         log.info("Leaving addCustomer [response]: {}", CustomerResponseDTO.builder().build().getIdCustomer());
@@ -88,7 +88,7 @@ public class CustomerController {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @ApiOperation(
-            value = "Retrieves data associated to List Master by Id",
+            value = "Retrieves data associated with all the tickets By customer by Id",
             httpMethod = "GET",
             response = CustomerDetailResponseDTO.class
     )
@@ -110,7 +110,7 @@ public class CustomerController {
         try{
             customerTicketsResponseDTO = customerService.findAllTicketByCustomerById(id);
         } catch (ReadAccessException e) {
-            response.put("Mensaje", e.getMessage());
+            response.put("Message: ", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
         log.info("Leaving getTicketsByCustomerId [response]: {}", customerTicketsResponseDTO.toString());

@@ -24,6 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -95,13 +96,13 @@ public class TicketController {
             ticketResponseDTO.setCustomer(customerResponseDTO);
 
         } catch (ReadAccessException e) {
-            response.put("Mensaje", e.getMessage());
+            response.put("Message:", e.getMessage());
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         } catch (RuntimeException e) {
-            response.put("Mensaje", "Error del sistema, pongase en contanto con el administrador");
+            response.put("Message:", "System Error , please contact Administrator");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (DataBaseException e) {
-            response.put("Mensaje", "Prueba de error database");
+            response.put("Message:", "DataBase Error , please contact Administrator");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
         log.info("Leaving addCustomer [response]: {}", TicketResponseDTO.builder().build().getIdTicket());
@@ -132,14 +133,13 @@ public class TicketController {
 
         Map<String, Object> response = new HashMap<>();
         TicketResponseDTO ticketResponseDTO = null;
-        CustomerResponseDTO customerResponseDTO = null;
         try{
             ticketResponseDTO = ticketService.findTicketById(id);
         } catch (ReadAccessException e) {
-            response.put("Mensaje", e.getMessage());
+            response.put("Message:", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
-        log.info("Leaving getPersonById [response]: {}", TicketResponseDTO.builder().build().getIdTicket());
+        log.info("Leaving getTicketById [response]: {}", TicketResponseDTO.builder().build().getIdTicket());
         return new ResponseEntity<>(ticketResponseDTO, HttpStatus.ACCEPTED);
 
     }

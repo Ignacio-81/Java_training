@@ -1,5 +1,9 @@
 package com.ayi.trabajo_final.app.services.Impl;
-
+/**
+ * Customer Detail Service Implementation
+ * @Transactional
+ *
+ */
 import com.ayi.trabajo_final.app.dto.requests.CustomerDetailDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerDetailResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
@@ -38,8 +42,8 @@ public class CustomerDetailServiceImpl implements ICustomerDetailService {
     public CustomerDetailResponseDTO addCustomerDetail(CustomerDetailDTO customerDetailDTO, CustomerResponseDTO customerRDTO) throws ReadAccessException, DataBaseException {
         CustomerDetailResponseDTO customerDetailResponseDTO;
 
-        if (ObjectUtils.isEmpty(customerDetailDTO)) {
-            throw new ReadAccessException("Error datos de la DTO estan vacios");
+        if (ObjectUtils.isEmpty(customerDetailDTO) ||ObjectUtils.isEmpty(customerRDTO) ) {
+            throw new ReadAccessException("Error DTO data is empty");
         }
 
         CustomerDetailEntity entity = customerDetailMapper.dtoToEntity(customerDetailDTO);
@@ -63,13 +67,13 @@ public class CustomerDetailServiceImpl implements ICustomerDetailService {
         CustomerDetailResponseDTO customerDetailResponseDTO;
 
         if (idDetail == null || idDetail <= 0) {
-            throw new ReadAccessException("ERROR, EL ID ES NULO O MENOR A 0.");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<CustomerDetailEntity> entity = customerDetailRepository.findById(idDetail); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id buscado");
+            throw new ReadAccessException("Error, no data for this ID");
         }
 
         CustomerDetailResponseDTO entity_RDTO = CustomerDetailResponseDTO.builder()
@@ -83,21 +87,21 @@ public class CustomerDetailServiceImpl implements ICustomerDetailService {
     public void removeCustomerDetailById(Long id) throws ReadAccessException {
 
         if (id == null || id == 0 || id < 0) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<CustomerDetailEntity> entity = customerDetailRepository.findById(id); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id buscado");
+            throw new ReadAccessException("Error, no data for this ID");
         }
 
         try {
             customerDetailRepository.deleteById(entity.get().getId());
-            log.info("Completed Person data physical removal physical id={}", id);
+            log.info("Completed Customer Detail data physical removal physical id={}", id);
         } catch (Throwable e) {
-            log.error("Can't remove List Person data physical removal data={}, cause={}", id, e.getMessage());
-            throw new RuntimeException("Error de base de datos no controlado");
+            log.error("Can't remove Customer Detail data physical removal data={}, cause={}", id, e.getMessage());
+            throw new RuntimeException("Database Error not handled");
         }
 
 
@@ -108,14 +112,14 @@ public class CustomerDetailServiceImpl implements ICustomerDetailService {
     public CustomerDetailResponseDTO updateCustomerDetailById(Long id, CustomerDetailDTO customerDTO) throws ReadAccessException {
 
         if (id == null || id == 0L || id < 0L) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<CustomerDetailEntity> entity = customerDetailRepository.findById(id);
 
 
         if (!entity.isPresent()) { //Verifico que la persona a modificar existe
-            throw new ReadAccessException("Error identificador no existe: " + id);
+            throw new ReadAccessException("Error, no data for this ID " + id);
         }
 
         try {
@@ -125,7 +129,7 @@ public class CustomerDetailServiceImpl implements ICustomerDetailService {
             return customerDetailMapper.entityToDto(customerRequest);
         } catch (Exception th) {
             log.error("Found an error when saving List Master Type code={}, cause={}", th.getMessage());
-            throw new WriteAccessException("Error no identificado de runtime");
+            throw new WriteAccessException("Runtime undefined Error");
 
         }
     }

@@ -1,5 +1,8 @@
 package com.ayi.trabajo_final.app.mapper.impl;
-
+/**
+ * Ticket Mapper Implementation
+ *
+ */
 import com.ayi.trabajo_final.app.dto.requests.TicketDTO;
 import com.ayi.trabajo_final.app.dto.responses.TicketResponseDTO;
 import com.ayi.trabajo_final.app.entities.TicketEntity;
@@ -8,8 +11,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @AllArgsConstructor

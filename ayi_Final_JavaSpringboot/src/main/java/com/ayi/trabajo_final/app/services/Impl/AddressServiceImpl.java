@@ -1,5 +1,9 @@
 package com.ayi.trabajo_final.app.services.Impl;
-
+/**
+ * Address Service Implementation
+ * @Transactional
+ *
+ */
 import com.ayi.trabajo_final.app.dto.requests.AddressDTO;
 import com.ayi.trabajo_final.app.dto.responses.AddressResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
@@ -37,8 +41,8 @@ public class AddressServiceImpl implements IAddressService {
     public AddressResponseDTO addAddress(AddressDTO addressDTO, CustomerResponseDTO customerRDTO) throws ReadAccessException, DataBaseException {
         AddressResponseDTO addressResponseDTO;
 
-        if (ObjectUtils.isEmpty(addressDTO)) {
-            throw new ReadAccessException("Error datos de la DTO estan vacios");
+        if (ObjectUtils.isEmpty(addressDTO)||ObjectUtils.isEmpty(customerRDTO) ) {
+            throw new ReadAccessException("Error DTO data is empty");
         }
 
         AddressEntity entity = addressMapper.dtoToEntity(addressDTO);
@@ -62,13 +66,13 @@ public class AddressServiceImpl implements IAddressService {
         AddressResponseDTO addressResponseDTO;
 
         if (idAddress == null || idAddress <= 0) {
-            throw new ReadAccessException("ERROR, EL ID ES NULO O MENOR A 0.");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<AddressEntity> entity = addressRespository.findById(idAddress); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id de la direccion buscada");
+            throw new ReadAccessException("Error, no data for this ID");
         }
 
         addressResponseDTO = addressMapper.entityToDto(entity.get());
@@ -79,21 +83,20 @@ public class AddressServiceImpl implements IAddressService {
     public void removeAddressById(Long idAddress) throws ReadAccessException {
 
         if (idAddress == null || idAddress == 0 || idAddress < 0) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<AddressEntity> entity = addressRespository.findById(idAddress); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id de la direccion buscada");
+            throw new ReadAccessException("Error, no data for this ID");
         }
-
         try {
             addressRespository.deleteById(entity.get().getId());
-            log.info("Completed Person data physical removal physical id={}", idAddress);
+            log.info("Completed Address data physical removal physical id={}", idAddress);
         } catch (Throwable e) {
             log.error("Can't remove List Person data physical removal data={}, cause={}", idAddress, e.getMessage());
-            throw new RuntimeException("Error de base de datos no controlado");
+            throw new RuntimeException("Database Error not handled");
         }
 
 
@@ -104,14 +107,14 @@ public class AddressServiceImpl implements IAddressService {
     public AddressResponseDTO updateAddressById(Long idAddress, AddressDTO addressDTO) throws ReadAccessException {
 
         if (idAddress == null || idAddress == 0L || idAddress < 0L) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<AddressEntity> entity = addressRespository.findById(idAddress);
 
 
         if (!entity.isPresent()) { //Verifico que la persona a modificar existe
-            throw new ReadAccessException("Error identificador de persona no existe: " + idAddress);
+            throw new ReadAccessException("Error, no data for this ID " + idAddress);
         }
 
         try {
@@ -121,7 +124,7 @@ public class AddressServiceImpl implements IAddressService {
             return addressMapper.entityToDto(addressRequest);
         } catch (Exception th) {
             log.error("Found an error when saving List Master Type code={}, cause={}", addressDTO.getStreetName() + " " + addressDTO.getStreetNumber(), th.getMessage());
-            throw new WriteAccessException("Error no identificado de runtime");
+            throw new WriteAccessException("Runtime undefined Error");
 
         }
     }

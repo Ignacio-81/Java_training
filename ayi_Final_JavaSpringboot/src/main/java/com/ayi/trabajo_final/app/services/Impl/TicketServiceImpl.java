@@ -1,5 +1,9 @@
 package com.ayi.trabajo_final.app.services.Impl;
-
+/**
+ * Ticket Service Implementation
+ * @Transactional
+ *
+ */
 import com.ayi.trabajo_final.app.dto.requests.TicketDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.TicketResponseDTO;
@@ -22,7 +26,6 @@ import org.springframework.util.ObjectUtils;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service //Indica que es un servicio y puede ser inyectado
@@ -47,10 +50,9 @@ public class TicketServiceImpl implements ITicketService {
         TicketResponseDTO ticketResponseDTO;
 
         if (ObjectUtils.isEmpty(ticketDTO)) {
-            throw new ReadAccessException("Error datos de la DTO estan vacios");
+            throw new ReadAccessException("Error DTO Data is empty");
         }
 
- //       TicketEntity t_entity = ticketMapper.dtoToEntity(ticketDTO);
         TicketEntity t_entity = new TicketEntity(
                 ticketDTO.getDescription(),
                 ticketDTO.getTotal()
@@ -72,13 +74,13 @@ public class TicketServiceImpl implements ITicketService {
         TicketResponseDTO ticketResponseDTO;
 
         if (idTicket == null || idTicket <= 0) {
-            throw new ReadAccessException("ERROR, EL ID ES NULO O MENOR A 0.");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<TicketEntity> entity = ticketsRespository.findById(idTicket); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id buscado");
+            throw new ReadAccessException("Error, no data for this ID");
         }
 
         ticketResponseDTO = ticketMapper.entityToDto(entity.get());
@@ -89,23 +91,22 @@ public class TicketServiceImpl implements ITicketService {
     public void removeTicketsById(Long idTicket) throws ReadAccessException {
 
         if (idTicket == null || idTicket == 0 || idTicket < 0) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<TicketEntity> entity = ticketsRespository.findById(idTicket); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id buscado");
+            throw new ReadAccessException("Error, no data for this ID");
         }
 
         try {
             ticketsRespository.deleteById(entity.get().getId());
-            log.info("Completed Person data physical removal physical id={}", idTicket);
+            log.info("Completed Ticket data physical removal physical id={}", idTicket);
         } catch (Throwable e) {
-            log.error("Can't remove List Person data physical removal data={}, cause={}", idTicket, e.getMessage());
-            throw new RuntimeException("Error de base de datos no controlado");
+            log.error("Can't remove Ticket data physical removal data={}, cause={}", idTicket, e.getMessage());
+            throw new RuntimeException("Database Error not handled");
         }
-
 
 
     }
@@ -114,13 +115,13 @@ public class TicketServiceImpl implements ITicketService {
     public TicketResponseDTO updateTicketById(Long idTicket, TicketDTO ticketDTO) throws ReadAccessException {
 
         if (idTicket == null || idTicket == 0L || idTicket < 0L) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<TicketEntity> entity = ticketsRespository.findById(idTicket);
 
         if (!entity.isPresent()) { //Verifico que la persona a modificar existe
-            throw new ReadAccessException("Error identificador de Ticket no existe: " + idTicket);
+            throw new ReadAccessException("Error, no data for this ID " + idTicket);
         }
 
         try {
@@ -130,7 +131,7 @@ public class TicketServiceImpl implements ITicketService {
             return ticketMapper.entityToDto(ticketRequest);
         } catch (Exception th) {
             log.error("Found an error when saving List Master Type code={}, cause={}", ticketDTO.getDescription(), th.getMessage());
-            throw new WriteAccessException("Error no identificado de runtime");
+            throw new WriteAccessException("Runtime undefined Error");
 
         }
     }

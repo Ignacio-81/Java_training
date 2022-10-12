@@ -1,5 +1,8 @@
 package com.ayi.trabajo_final.app.mapper.impl;
-
+/**
+ * Customer Mapper Implementation
+ *
+ */
 import com.ayi.trabajo_final.app.dto.requests.CustomerDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerTicketsResponseDTO;
@@ -41,13 +44,6 @@ public class CustomerMapperImpl extends Exception implements ICustomerMapper {
         modelMapper.map(entity, customerTicketsResponseDTO);
         return customerTicketsResponseDTO;
     }
-/*    @Override
-    public CustomerEntity toEntityByRequest(CustomerDTO dto) {
-
-        CustomerEntity personEntity = new CustomerEntity();
-        modelMapper.map(dto, personEntity);
-        return personEntity;
-    }*/
 
 
 }

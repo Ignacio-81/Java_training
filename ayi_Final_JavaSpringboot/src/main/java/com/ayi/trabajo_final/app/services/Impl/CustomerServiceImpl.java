@@ -1,10 +1,14 @@
 package com.ayi.trabajo_final.app.services.Impl;
+/**
+ * Customer Service Implementation
+ * @Transactional
+ *
+ */
 
 import com.ayi.trabajo_final.app.dto.requests.CustomerDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerTicketsResponseDTO;
 import com.ayi.trabajo_final.app.entities.CustomerEntity;
-import com.ayi.trabajo_final.app.entities.TicketEntity;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
 import com.ayi.trabajo_final.app.exceptions.WriteAccessException;
@@ -38,29 +42,27 @@ public class CustomerServiceImpl implements ICustomerService {
     private ICustomerMapper customerMapper; // Acá uso los mapper (me transforma una entidad a otra)
 
     @Override
-    public CustomerResponseDTO addCustomer(CustomerDTO customerDTO) throws ReadAccessException, DataBaseException {
+    public CustomerResponseDTO addCustomer(CustomerDTO customerDTO) throws ReadAccessException, WriteAccessException, DataBaseException{
         CustomerResponseDTO customerResponseDTO;
 
         if (ObjectUtils.isEmpty(customerDTO)) {
-            throw new ReadAccessException("Error datos de la DTO estan vacios");
+            throw new ReadAccessException("Error: DTO Data is empty");
         }
         Optional<CustomerEntity> entity_check = customerRepository.getCustomerByDNI(customerDTO.getDocumentNumber()); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (entity_check.isPresent()) {
-            throw new WriteAccessException("Persona ya existe registrada en el sistema");
+            throw new WriteAccessException("Error: This customer already exists on the system");
         }
 
-
-        CustomerEntity entity = CustomerEntity.builder()
-            .firstName(customerDTO.getFirstName())
-            .lastName(customerDTO.getLastName())
-            .documentNumber(customerDTO.getDocumentNumber())
-            .dateCreated(LocalDate.now())
-            .dateModified(LocalDate.now())
-
-            .build();
-
         try{
+            CustomerEntity entity = CustomerEntity.builder()
+                    .firstName(customerDTO.getFirstName())
+                    .lastName(customerDTO.getLastName())
+                    .documentNumber(customerDTO.getDocumentNumber())
+                    .dateCreated(LocalDate.now())
+                    .dateModified(LocalDate.now())
+
+                    .build();
             customerRepository.save(entity);
             customerResponseDTO = customerMapper.entityToDto(entity);
             return customerResponseDTO;
@@ -75,13 +77,13 @@ public class CustomerServiceImpl implements ICustomerService {
         CustomerResponseDTO customerResponseDTO;
 
         if (idCustomer == null || idCustomer <= 0) {
-            throw new ReadAccessException("ERROR, EL ID ES NULO O MENOR A 0.");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<CustomerEntity> entity = customerRepository.findById(idCustomer); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id de persona buscado");
+            throw new ReadAccessException("Error, no data for this ID");
         }
 
         customerResponseDTO = customerMapper.entityToDto(entity.get());
@@ -93,21 +95,21 @@ public class CustomerServiceImpl implements ICustomerService {
     public void removeCustomerById(Long idCustomer) throws ReadAccessException {
 
         if (idCustomer == null || idCustomer == 0 || idCustomer < 0) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<CustomerEntity> entity = customerRepository.findById(idCustomer); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id de persona buscado");
+            throw new ReadAccessException("Error, no data for this ID");
         }
 
         try {
             customerRepository.deleteById(entity.get().getId());
-            log.info("Completed Person data physical removal physical id={}", idCustomer);
+            log.info("Completed Customer data physical removal physical id={}", idCustomer);
         } catch (Throwable e) {
-            log.error("Can't remove List Person data physical removal data={}, cause={}", idCustomer, e.getMessage());
-            throw new RuntimeException("Error de base de datos no controlado");
+            log.error("Can't remove Customer data physical removal data={}, cause={}", idCustomer, e.getMessage());
+            throw new RuntimeException("Database Error not handled");
         }
 
 
@@ -116,14 +118,14 @@ public class CustomerServiceImpl implements ICustomerService {
     public CustomerResponseDTO updateCustomerById(Long idCustomer, CustomerDTO customerDTO) throws ReadAccessException {
 
         if (idCustomer == null || idCustomer == 0L || idCustomer < 0L) {
-            throw new ReadAccessException("Error el id a buscar es nulo o vacio");
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<CustomerEntity> entity = customerRepository.findById(idCustomer);
 
 
         if (!entity.isPresent()) { //Verifico que la persona a modificar existe
-            throw new ReadAccessException("Error identificador de persona no existe: " + idCustomer);
+            throw new ReadAccessException("Error, no data for this ID " + idCustomer);
         }
 
         try {
@@ -138,7 +140,7 @@ public class CustomerServiceImpl implements ICustomerService {
             return customerMapper.entityToDto(customerRequest);
         } catch (Exception th) {
             log.error("Found an error when saving List Master Type code={}, cause={}", customerDTO.getFirstName() + " " + customerDTO.getLastName(), th.getMessage());
-            throw new WriteAccessException("Error no identificado de runtime");
+            throw new WriteAccessException("Runtime undefined Error");
 
         }
     }
@@ -146,14 +148,14 @@ public class CustomerServiceImpl implements ICustomerService {
     public List<CustomerTicketsResponseDTO> findAllTicketByCustomerById(Long idCustomer) throws ReadAccessException {
         List<CustomerTicketsResponseDTO> ticketEntityList;
 
-        if (idCustomer == null || idCustomer <= 0) {
-            throw new ReadAccessException("ERROR, EL ID ES NULO O MENOR A 0.");
+        if (idCustomer == null || idCustomer == 0L || idCustomer < 0L) {
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
         }
 
         Optional<CustomerEntity> entity = customerRepository.findById(idCustomer); // Ya tengo todos los métodos para buscar, deletear, etc
 
         if (!entity.isPresent()) {
-            throw new RuntimeException("Error no existe el id de persona buscado");
+            throw new ReadAccessException("Error: No data information with this ID");
         }
         ticketEntityList = entity.get().getTickets().stream()
                 .map(lt -> new CustomerTicketsResponseDTO(
