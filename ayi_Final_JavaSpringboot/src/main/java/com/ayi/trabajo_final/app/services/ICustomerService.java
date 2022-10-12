@@ -20,6 +20,6 @@ public interface ICustomerService {
 
     CustomerResponseDTO updateCustomerById(Long idCustomer, CustomerDTO customerDTO) throws ReadAccessException;
 
-    List<CustomerTicketsResponseDTO> findAllTicketByCustomerById(Long idCustomer) throws ReadAccessException;
+
 
 }

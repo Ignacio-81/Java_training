@@ -9,6 +9,8 @@ import com.ayi.trabajo_final.app.dto.responses.TicketResponseDTO;
 import com.ayi.trabajo_final.app.entities.CustomerEntity;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
+import com.ayi.trabajo_final.app.mapper.IAddressMapper;
+import com.ayi.trabajo_final.app.mapper.ICustomerDetailMapper;
 import com.ayi.trabajo_final.app.mapper.ICustomerMapper;
 import com.ayi.trabajo_final.app.repositories.ICustomerRepository;
 import com.ayi.trabajo_final.app.services.IAddressService;
@@ -25,9 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @AllArgsConstructor
 @Api(value = "Ticket API", tags = {"Tickets Service"}) // Le decimos a Swagger que hay una transacción nueva, y que se llama Person Service (Es lo que se ve en grande en el Swagger)
@@ -44,6 +44,7 @@ public class TicketController {
     private ICustomerService customerService;
     @Autowired
     private ICustomerMapper customerMapper;
+
     @Autowired
     private ICustomerDetailService iCustomerDetailService;
     @Autowired
@@ -74,7 +75,7 @@ public class TicketController {
         Map<String, Object> response = new HashMap<>();
         TicketResponseDTO ticketResponseDTO = null;
         CustomerResponseDTO customerResponseDTO = null;
-        AddressResponseDTO addressResponseDTO = null;
+        List<AddressResponseDTO> addressResponseDTO = new ArrayList<>();
         CustomerDetailResponseDTO customerDetailResponseDTO = null;
         try {
 
@@ -84,11 +85,12 @@ public class TicketController {
             if (entity_check.isPresent()) {
 
                 customerResponseDTO = customerMapper.entityToDto(entity_check.get());
-
+                customerResponseDTO.setAddressResponseDTO(customerResponseDTO.getAddressResponseDTO());
+                //customerResponseDTO.setCustomerDetailResponseDTO(customerDetailMapper.entityToDto(entity_check.get().getDetails()));
             }else {
                 customerResponseDTO = customerService.addCustomer(ticketDTO.getCustomer());
                 customerDetailResponseDTO = iCustomerDetailService.addCustomerDetail(ticketDTO.getCustomer().getCustomerDetailDTO(), customerResponseDTO);
-                addressResponseDTO = iAddressService.addAddress(ticketDTO.getCustomer().getAddressDTO(), customerResponseDTO);
+                addressResponseDTO.add(iAddressService.addAddress(ticketDTO.getCustomer().getAddressDTO(), customerResponseDTO));
                 customerResponseDTO.setAddressResponseDTO(addressResponseDTO);
                 customerResponseDTO.setCustomerDetailResponseDTO(customerDetailResponseDTO);
             }

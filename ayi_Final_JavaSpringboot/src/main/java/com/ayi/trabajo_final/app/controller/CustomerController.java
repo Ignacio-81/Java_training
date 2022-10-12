@@ -8,6 +8,7 @@ import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
 import com.ayi.trabajo_final.app.services.IAddressService;
 import com.ayi.trabajo_final.app.services.ICustomerDetailService;
 import com.ayi.trabajo_final.app.services.ICustomerService;
+import com.ayi.trabajo_final.app.services.ITicketService;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,8 @@ public class CustomerController {
     private ICustomerDetailService iCustomerDetailService;
     @Autowired
     private IAddressService iAddressService;
+    @Autowired
+    private ITicketService ticketService;
 
     @PostMapping(
             value = "/addCustomer"
@@ -60,12 +64,12 @@ public class CustomerController {
 
         Map<String, Object> response = new HashMap<>();
         CustomerResponseDTO customerResponseDTO = null;
-        AddressResponseDTO addressResponseDTO = null;
+        List<AddressResponseDTO> addressResponseDTO = new ArrayList<>();
         CustomerDetailResponseDTO customerDetailResponseDTO = null;
         try {
             customerResponseDTO = customerService.addCustomer(customerDTO);
             customerDetailResponseDTO = iCustomerDetailService.addCustomerDetail(customerDTO.getCustomerDetailDTO(), customerResponseDTO);
-            addressResponseDTO = iAddressService.addAddress(customerDTO.getAddressDTO(), customerResponseDTO);
+            addressResponseDTO.add(iAddressService.addAddress(customerDTO.getAddressDTO(), customerResponseDTO));
             customerResponseDTO.setAddressResponseDTO(addressResponseDTO);
             customerResponseDTO.setCustomerDetailResponseDTO(customerDetailResponseDTO);
         } catch (ReadAccessException e) {
@@ -108,7 +112,7 @@ public class CustomerController {
         Map<String, Object> response = new HashMap<>();
         List<CustomerTicketsResponseDTO> customerTicketsResponseDTO = null;
         try{
-            customerTicketsResponseDTO = customerService.findAllTicketByCustomerById(id);
+            customerTicketsResponseDTO = ticketService.findAllTicketByCustomerById(id);
         } catch (ReadAccessException e) {
             response.put("Message: ", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);

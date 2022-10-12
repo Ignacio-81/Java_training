@@ -12,6 +12,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 //@Data
 @NoArgsConstructor
@@ -55,7 +57,7 @@ public class CustomerResponseDTO implements Serializable {
 
     public CustomerDetailResponseDTO customerDetailResponseDTO;
 
-    public AddressResponseDTO addressResponseDTO;
+    public List<AddressResponseDTO> addressResponseDTO = new ArrayList<>();
     public CustomerResponseDTO(String firstName, String lastName, Integer documentNumber){
         this.firstName = firstName;
         this.lastName = lastName;

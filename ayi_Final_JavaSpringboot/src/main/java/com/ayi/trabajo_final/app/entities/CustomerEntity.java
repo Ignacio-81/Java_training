@@ -54,6 +54,9 @@ public class CustomerEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
     private CustomerDetailEntity details;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer") //
+    private List<AddressEntity> address = new ArrayList<>();
+
     @Column(name = "date_created", nullable = false)
     private LocalDate dateCreated;
 
@@ -72,5 +75,6 @@ public class CustomerEntity implements Serializable {
         this.documentNumber = dni;
         //this.address = address;
     }
+
 
 }

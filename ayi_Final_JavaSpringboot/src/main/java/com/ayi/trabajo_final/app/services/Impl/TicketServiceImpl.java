@@ -6,7 +6,9 @@ package com.ayi.trabajo_final.app.services.Impl;
  */
 import com.ayi.trabajo_final.app.dto.requests.TicketDTO;
 import com.ayi.trabajo_final.app.dto.responses.CustomerResponseDTO;
+import com.ayi.trabajo_final.app.dto.responses.CustomerTicketsResponseDTO;
 import com.ayi.trabajo_final.app.dto.responses.TicketResponseDTO;
+import com.ayi.trabajo_final.app.entities.CustomerEntity;
 import com.ayi.trabajo_final.app.entities.TicketEntity;
 import com.ayi.trabajo_final.app.exceptions.DataBaseException;
 import com.ayi.trabajo_final.app.exceptions.ReadAccessException;
@@ -26,6 +28,7 @@ import org.springframework.util.ObjectUtils;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service //Indica que es un servicio y puede ser inyectado
@@ -135,6 +138,29 @@ public class TicketServiceImpl implements ITicketService {
 
         }
     }
+    @Override
+    public List<CustomerTicketsResponseDTO> findAllTicketByCustomerById(Long idCustomer) throws ReadAccessException {
+        List<CustomerTicketsResponseDTO> ticketEntityList;
 
+        if (idCustomer == null || idCustomer == 0L || idCustomer < 0L) {
+            throw new ReadAccessException("ERROR ID must be greater than 0, not 'Null'");
+        }
+
+        Optional<CustomerEntity> entity = customerRepository.findById(idCustomer); // Ya tengo todos los métodos para buscar, deletear, etc
+
+        if (!entity.isPresent()) {
+            throw new ReadAccessException("Error: No data information with this ID");
+        }
+        ticketEntityList = entity.get().getTickets().stream()
+                .map(lt -> new CustomerTicketsResponseDTO(
+                        lt.getId(),
+                        lt.getDescription(),
+                        lt.getTotal()
+                )) // Tdo esto es lo que estoy enviando al constructor de PersonResponseDTO
+                .collect(Collectors.toList()); // A través de stream, mapeo los campos de personEntities a personResponseDTOs
+        ;
+
+        return ticketEntityList;
+    }
 
 }
