@@ -1,2 +1,2 @@
-# Curso_Java
-Java with Springboot trainning, connection with SQLDatabase , API RestFull
+# REST API development project with SQL
+Java with Springboot project, connection with SQLDatabase , API RestFull
